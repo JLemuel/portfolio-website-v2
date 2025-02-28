@@ -1,9 +1,13 @@
-import { type Metadata } from 'next'
+'use client'
+
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { Button } from '@/components/Button'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
+import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 function SocialLink({
   icon: Icon,
@@ -20,17 +24,43 @@ function SocialLink({
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Get in touch with me for opportunities or collaborations.',
-}
-
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+
+    const formData = new FormData(event.currentTarget)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (response.ok) {
+        toast.success('Message sent successfully!')
+        setTimeout(() => {
+          router.push('/thank-you')
+        }, 1000)
+      } else {
+        toast.error('Failed to send message. Please try again.')
+      }
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <SimpleLayout
       title="Let's build something together."
       intro="Looking to bring your web project to life? I'm here to help transform your ideas into reality."
     >
+      <Toaster position="bottom-center" />
       <div className="mx-auto max-w-xl">
         <div className="space-y-12">
           <div className="flex justify-center gap-12">
@@ -46,8 +76,7 @@ export default function Contact() {
           </div>
 
           <form 
-            action="/api/contact" 
-            method="POST"
+            onSubmit={handleSubmit}
             className="mt-20 space-y-8"
           >
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -86,8 +115,13 @@ export default function Contact() {
             </div>
 
             <div>
-              <Button type="submit" variant="primary" className="w-full">
-                Send Message
+              <Button
+                type="submit"
+                variant="primary"
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </div>
           </form>

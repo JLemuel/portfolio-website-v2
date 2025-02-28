@@ -1,8 +1,41 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { Resend } from 'resend'
+import ContactFormEmail from '../../../../emails/ContactFormEmail'
+import { renderAsync } from '@react-email/render'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+// Simple in-memory store for rate limiting
+const rateLimit = new Map<string, { count: number; timestamp: number }>()
+
+// Rate limit configuration
+const RATE_LIMIT = 5 // maximum emails per window
+const RATE_WINDOW = 3600000 // 1 hour in milliseconds
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const userRate = rateLimit.get(ip)
+
+  if (!userRate) {
+    rateLimit.set(ip, { count: 1, timestamp: now })
+    return true
+  }
+
+  if (now - userRate.timestamp > RATE_WINDOW) {
+    // Reset if window has passed
+    rateLimit.set(ip, { count: 1, timestamp: now })
+    return true
+  }
+
+  if (userRate.count >= RATE_LIMIT) {
+    return false
+  }
+
+  // Increment count
+  rateLimit.set(ip, { count: userRate.count + 1, timestamp: userRate.timestamp })
+  return true
+}
 
 // Add this validation function
 function validateFormData(name: string, email: string, message: string) {
@@ -22,66 +55,61 @@ function validateFormData(name: string, email: string, message: string) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Get IP address
+    const ip = request.ip || 'unknown'
+
+    // Check rate limit
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
     const formData = await request.formData()
     const name = formData.get('name') as string
     const email = formData.get('email') as string
     const message = formData.get('message') as string
 
-    // Add validation
     validateFormData(name, email, message)
 
-    const websiteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://yourwebsite.com'
-    const logoUrl = `${websiteUrl}/images/vector.png`
+    const emailHtml = await renderAsync(
+      ContactFormEmail({ name, email, message })
+    )
 
     await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
+      from: 'Contact Form <noreply@johnlemuel.xyz>',
       to: 'johnlemuelnicolas@gmail.com',
       subject: `New message from ${name}`,
-      html: `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          </head>
-          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; margin: 0; padding: 40px 20px; background-color: white; color: #333;">
-            <div style="max-width: 520px; margin: 0 auto;">
-              <!-- Logo -->
-              <div style="text-align: center; margin-bottom: 40px;">
-                <img src="${logoUrl}" alt="Logo" style="height: 50px; width: auto;">
-              </div>
-
-              <!-- Content -->
-              <div style="margin-bottom: 32px;">
-                <div style="margin-bottom: 24px;">
-                  <p style="margin: 0 0 8px;"><strong>From:</strong> ${name}</p>
-                  <p style="margin: 0 0 24px;"><strong>Email:</strong> ${email}</p>
-                  
-                  <div style="border-left: 2px solid #eee; padding-left: 16px; margin: 24px 0;">
-                    <p style="margin: 0; white-space: pre-wrap;">${message}</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Footer -->
-              <div style="border-top: 1px solid #eee; padding-top: 24px; text-align: center; color: #666; font-size: 14px;">
-                <p style="margin: 0;">
-                  Reply to this email to respond to ${name}
-                </p>
-              </div>
-            </div>
-          </body>
-        </html>
-      `,
+      html: emailHtml,
       replyTo: email,
     })
 
-    return NextResponse.redirect(new URL('/thank-you', request.url))
+    return NextResponse.json(
+      { success: true, message: 'Email sent successfully' },
+      { status: 200 }
+    )
   } catch (error) {
     console.error('Error sending email:', error)
+    let errorMessage = 'Failed to send message'
+    if (error instanceof Error) {
+      errorMessage = error.message
+    }
     return NextResponse.json(
-      { error: 'Failed to send message' },
+      { error: errorMessage },
       { status: 500 }
     )
   }
+}
+
+// Add OPTIONS method to handle preflight requests
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  })
 } 
