@@ -90,20 +90,20 @@ export default function About() {
         </div>
         <div className="lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            I'm John Lemuel, a Full-Stack Software Engineer based in the Philippines.
+            I&apos;m John Lemuel, a Full-Stack Software Engineer based in the Philippines.
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
             <p>
-              With three years of experience in software development, I've developed a deep understanding of both frontend and backend technologies. Based in the Philippines but working with clients globally, I bring a unique perspective to software development that combines local insights with international standards.
+              With three years of experience in software development, I&apos;ve developed a deep understanding of both frontend and backend technologies. Based in the Philippines but working with clients globally, I bring a unique perspective to software development that combines local insights with international standards.
             </p>
             <p>
               I specialize in developing full-stack web applications using modern technologies like React, Next.js, Node.js, and various cloud services. My experience spans from crafting responsive user interfaces to designing efficient backend systems and APIs.
             </p>
             <p>
-              Throughout my career, I've had the opportunity to work on diverse projects that have honed my problem-solving abilities and technical expertise. I believe in writing clean, maintainable code and implementing best practices that make applications not just functional, but scalable and future-proof.
+              Throughout my career, I&apos;ve had the opportunity to work on diverse projects that have honed my problem-solving abilities and technical expertise. I believe in writing clean, maintainable code and implementing best practices that make applications not just functional, but scalable and future-proof.
             </p>
             <p>
-              Being part of the thriving tech community in the Philippines, I'm passionate about contributing to the growth of the local tech ecosystem while maintaining global standards in software development. When I'm not coding, I enjoy staying up-to-date with the latest tech trends, contributing to open-source projects, and sharing knowledge with the developer community.
+              Being part of the thriving tech community in the Philippines, I&apos;m passionate about contributing to the growth of the local tech ecosystem while maintaining global standards in software development. When I&apos;m not coding, I enjoy staying up-to-date with the latest tech trends, contributing to open-source projects, and sharing knowledge with the developer community.
             </p>
           </div>
         </div>

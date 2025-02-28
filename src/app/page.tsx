@@ -29,7 +29,7 @@ export default async function Home() {
             Building exceptional digital experiences from the Philippines.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I'm John Lemuel, a Full-Stack Software Engineer passionate about crafting 
+            I&apos;m John Lemuel, a Full-Stack Software Engineer passionate about crafting 
             scalable solutions and delivering high-quality web applications. With a focus 
             on clean code and user-centric design, I transform complex challenges into 
             elegant solutions.
