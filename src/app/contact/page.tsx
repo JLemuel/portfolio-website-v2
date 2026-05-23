@@ -40,13 +40,17 @@ export default function Contact() {
         body: formData,
       })
 
+      const result = await response.json().catch(() => ({}))
+
       if (response.ok) {
         toast.success('Message sent successfully!')
         setTimeout(() => {
           router.push('/thank-you')
         }, 1000)
       } else {
-        toast.error('Failed to send message. Please try again.')
+        toast.error(
+          result?.error || 'Failed to send message. Please try again.',
+        )
       }
     } catch (error) {
       toast.error('Something went wrong. Please try again.')
