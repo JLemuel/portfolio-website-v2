@@ -124,7 +124,7 @@ export default function About() {
             className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
             style={{ animationDelay: '0ms' }}
           >
-            Based in the Philippines · Working globally
+            Based in the Philippines · Open to remote work
           </span>
           <h1
             className="mt-5 animate-fade-up text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100"
@@ -142,18 +142,17 @@ export default function About() {
           >
             <p>
               For the last three years I&apos;ve been shipping production web
-              apps for clients across the US, Europe, and Asia — building with
-              React, Next.js, Laravel, and TypeScript. I care about clean
-              architecture, fast load times, and interfaces that feel obvious
-              to use.
+              apps with React, Next.js, Laravel, and TypeScript. I care about
+              clean architecture, fast load times, and interfaces that feel
+              obvious to use.
             </p>
             <p>
-              Over the past year I&apos;ve gone deep into AI automation. I build
+              More recently I&apos;ve gone deep into AI automation. I build
               GPT-powered workflows, RAG chatbots, and small autonomous agents
               that quietly handle the work nobody wants to do — qualifying
               leads, processing documents, drafting content, answering
-              tier-1 support. The stack: OpenAI, LangChain-style RAG over
-              Pinecone or Supabase, glued together with n8n, Zapier, or
+              tier-1 support. The stack I reach for: OpenAI, RAG over Pinecone
+              or Supabase, wired together with n8n, Zapier, GHL, or
               hand-rolled Node/Python workers.
             </p>
             <p>
