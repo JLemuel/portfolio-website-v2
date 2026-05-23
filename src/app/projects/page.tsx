@@ -1,82 +1,164 @@
 import { type Metadata } from 'next'
-import Image from 'next/image'
+import Link from 'next/link'
 import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
-  SiStripe,
   SiLaravel,
   SiReact,
   SiMysql,
-  SiAew,
   SiWordpress,
+  SiOpenai,
+  SiPython,
+  SiZapier,
+  SiSupabase,
+  SiTwilio,
+  SiStripe,
 } from 'react-icons/si'
+import { HiSparkles, HiCode } from 'react-icons/hi'
 
-import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import logoAnimaginary from '@/images/logos/animaginary.svg'
-import logoCosmos from '@/images/logos/cosmos.svg'
-import logoHelioStream from '@/images/logos/helio-stream.svg'
-import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
-import logoPlanetaria from '@/images/logos/planetaria.svg'
 
-function TechStack({ technologies }: { technologies: Array<{ icon: any; name: string }> }) {
-  return (
-    <div className="flex gap-8">
-      {technologies.map((tech, index) => (
-        <div key={index} className="relative z-20">
-          <tech.icon className={`h-5 w-5
-            ${tech.name === 'React' && 'text-[#61DAFB] dark:text-[#61DAFB]'}
-            ${tech.name === 'Laravel' && 'text-[#FF2D20] dark:text-[#FF2D20]'}
-            ${tech.name === 'WordPress' && 'text-[#21759B] dark:text-[#21759B]'}
-            ${tech.name === 'Tailwind CSS' && 'text-[#38B2AC] dark:text-[#38B2AC]'}
-            ${tech.name === 'Next.js' && 'text-black dark:text-white'}
-            ${tech.name === 'TypeScript' && 'text-[#3178C6] dark:text-[#3178C6]'}
-            ${tech.name === 'MySQL' && 'text-[#4479A1] dark:text-[#4479A1]'}`} 
-          />
-        </div>
-      ))}
-    </div>
-  )
+type Tech = { icon: React.ComponentType<{ className?: string }>; name: string }
+
+type Project = {
+  name: string
+  category: 'AI Automation' | 'Web Development'
+  description: string
+  highlights: string[]
+  link: { href: string; label: string }
+  technologies: Tech[]
+  status?: 'Live' | 'Case study' | 'Sample build'
 }
 
-const projects = [
+const projects: Project[] = [
   {
-    name: 'Tough Cookies - Meal Prep Service',
+    name: 'AI Customer Support Agent',
+    category: 'AI Automation',
+    status: 'Sample build',
     description:
-      'Led the frontend development in converting and redesigning Boston\'s premier meal prep service from WordPress to a modern stack. Implemented responsive designs from Figma, enhanced user experience, and improved site performance for thousands of customers.',
+      'A RAG-powered support chatbot grounded on the client\'s help docs and product data. Handles tier-1 questions 24/7 and escalates complex cases to a human with full context.',
+    highlights: [
+      'Deflects ~70% of repeat support tickets',
+      'Pinecone vector search over docs + FAQs',
+      'Embeddable widget for any Next.js site',
+    ],
+    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
+    technologies: [
+      { icon: SiOpenai, name: 'OpenAI' },
+      { icon: SiNextdotjs, name: 'Next.js' },
+      { icon: SiSupabase, name: 'Supabase' },
+      { icon: SiTypescript, name: 'TypeScript' },
+    ],
+  },
+  {
+    name: 'Lead Qualification Pipeline',
+    category: 'AI Automation',
+    status: 'Sample build',
+    description:
+      'An end-to-end workflow that captures inbound leads, enriches them, scores intent with GPT-4, and routes hot leads straight to the sales rep in Slack with a tailored opening message.',
+    highlights: [
+      'Replaces ~10 hrs/week of manual triage',
+      'n8n workflow + OpenAI scoring + HubSpot sync',
+      'Slack alerts with AI-drafted reply',
+    ],
+    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
+    technologies: [
+      { icon: SiOpenai, name: 'OpenAI' },
+      { icon: SiZapier, name: 'n8n / Zapier' },
+      { icon: SiPython, name: 'Python' },
+    ],
+  },
+  {
+    name: 'Content Repurposing Engine',
+    category: 'AI Automation',
+    status: 'Sample build',
+    description:
+      'Turn one long-form input (blog post, podcast transcript, YouTube video) into LinkedIn posts, Twitter threads, and an email newsletter in under 60 seconds — all in your brand voice.',
+    highlights: [
+      '1 input → 6+ ready-to-publish assets',
+      'Brand voice locked via fine-tuned system prompt',
+      'Drafts land in Notion + Buffer for approval',
+    ],
+    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
+    technologies: [
+      { icon: SiOpenai, name: 'OpenAI' },
+      { icon: SiNextdotjs, name: 'Next.js' },
+      { icon: SiZapier, name: 'Zapier' },
+    ],
+  },
+  {
+    name: 'Voice AI Receptionist',
+    category: 'AI Automation',
+    status: 'Sample build',
+    description:
+      'A 24/7 voice agent that picks up missed calls for service businesses, answers FAQs, books appointments straight to Google Calendar, and texts a summary to the owner.',
+    highlights: [
+      'Twilio + OpenAI Realtime API',
+      'Captures bookings while you sleep',
+      'Handoff to human after 2 failed attempts',
+    ],
+    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
+    technologies: [
+      { icon: SiOpenai, name: 'OpenAI' },
+      { icon: SiTwilio, name: 'Twilio' },
+      { icon: SiPython, name: 'Python' },
+    ],
+  },
+  {
+    name: 'Tough Cookies — Meal Prep Service',
+    category: 'Web Development',
+    status: 'Live',
+    description:
+      "Led the frontend rebuild of Boston's premier meal prep service from WordPress to a modern stack. Translated Figma designs into a responsive, performant storefront serving thousands of customers.",
+    highlights: [
+      'WordPress → React/Laravel migration',
+      'Improved page speed by ~40%',
+      'Pixel-perfect Figma implementation',
+    ],
     link: { href: 'https://toughcookies.co/', label: 'toughcookies.co' },
-    logo: logoAnimaginary,
     technologies: [
       { icon: SiReact, name: 'React' },
       { icon: SiLaravel, name: 'Laravel' },
       { icon: SiWordpress, name: 'WordPress' },
-      { icon: SiTailwindcss, name: 'Tailwind CSS' },
+      { icon: SiTailwindcss, name: 'Tailwind' },
     ],
   },
   {
-    name: 'JobTrack Plus - Service Business Management',
+    name: 'JobTrack Plus — Field Service SaaS',
+    category: 'Web Development',
+    status: 'Live',
     description:
-      'Developed a comprehensive SaaS platform for service-based businesses. Built with modern technologies, it offers job scheduling, customer management, invoicing, and team collaboration features to streamline business operations.',
+      'A comprehensive SaaS platform for service-based businesses. Job scheduling, customer management, invoicing, and team collaboration — all in one place.',
+    highlights: [
+      'End-to-end Laravel + React build',
+      'Stripe billing & subscription tiers',
+      'Multi-tenant architecture',
+    ],
     link: { href: 'https://jobtrackplus.com/', label: 'jobtrackplus.com' },
-    logo: logoPlanetaria,
     technologies: [
       { icon: SiLaravel, name: 'Laravel' },
       { icon: SiReact, name: 'React' },
       { icon: SiMysql, name: 'MySQL' },
-      { icon: SiTailwindcss, name: 'Tailwind CSS' },
+      { icon: SiStripe, name: 'Stripe' },
     ],
   },
   {
     name: 'Portfolio Website',
+    category: 'Web Development',
+    status: 'Live',
     description:
-      'A modern, responsive personal website built with Next.js 14, TypeScript, and Tailwind CSS. Features dark mode, optimized performance, and clean architecture.',
-    link: { href: 'https://github.com/JLemuel', label: 'github.com' },
-    logo: logoHelioStream,
+      'This site — a modern, responsive personal portfolio built with Next.js 14, TypeScript, and Tailwind CSS. Server-rendered, dark mode, and tuned for Core Web Vitals.',
+    highlights: [
+      'Next.js App Router + Server Components',
+      'Dark mode with next-themes',
+      'Lighthouse 100 on key metrics',
+    ],
+    link: { href: 'https://github.com/JLemuel', label: 'github.com/JLemuel' },
     technologies: [
       { icon: SiNextdotjs, name: 'Next.js' },
       { icon: SiTypescript, name: 'TypeScript' },
-      { icon: SiTailwindcss, name: 'Tailwind CSS' },
+      { icon: SiTailwindcss, name: 'Tailwind' },
     ],
   },
 ]
@@ -92,45 +174,199 @@ function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
+function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M3.5 8.5l3 3 6-7"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const isAI = project.category === 'AI Automation'
+  return (
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-6 transition hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-indigo-500/40">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"
+      />
+
+      <div className="relative flex items-center justify-between gap-3">
+        <div
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl shadow-md ${
+            isAI
+              ? 'bg-gradient-to-br from-indigo-500 to-fuchsia-500 shadow-indigo-500/20'
+              : 'bg-gradient-to-br from-zinc-700 to-zinc-900 shadow-zinc-800/20 dark:from-zinc-200 dark:to-white dark:shadow-white/10'
+          }`}
+        >
+          {isAI ? (
+            <HiSparkles className="h-5 w-5 text-white" />
+          ) : (
+            <HiCode className="h-5 w-5 text-white dark:text-zinc-900" />
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span
+            className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+              isAI
+                ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300'
+                : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+            }`}
+          >
+            {project.category}
+          </span>
+          {project.status && (
+            <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+              {project.status}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <h3 className="relative mt-5 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+        {project.name}
+      </h3>
+      <p className="relative mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        {project.description}
+      </p>
+
+      <ul className="relative mt-4 space-y-1.5">
+        {project.highlights.map((highlight) => (
+          <li
+            key={highlight}
+            className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
+          >
+            <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-indigo-500 dark:text-indigo-400" />
+            <span>{highlight}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="relative mt-5 flex flex-wrap gap-3">
+        {project.technologies.map((tech) => (
+          <div
+            key={tech.name}
+            className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400"
+            title={tech.name}
+          >
+            <tech.icon className="h-4 w-4" />
+            <span className="text-xs font-medium">{tech.name}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative mt-6 flex flex-1 items-end">
+        <Link
+          href={project.link.href}
+          className="inline-flex items-center text-sm font-medium text-zinc-700 transition group-hover:text-indigo-500 dark:text-zinc-300 dark:group-hover:text-indigo-400"
+        >
+          <LinkIcon className="h-5 w-5 flex-none" />
+          <span className="ml-2">{project.link.label}</span>
+        </Link>
+      </div>
+    </article>
+  )
+}
+
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Selected projects showcasing my expertise in full-stack development.',
+  description:
+    'Selected web development and AI automation projects by John Lemuel — production builds and sample case studies showing what I can build for your team.',
 }
 
 export default function Projects() {
+  const aiProjects = projects.filter((p) => p.category === 'AI Automation')
+  const webProjects = projects.filter((p) => p.category === 'Web Development')
+
   return (
     <SimpleLayout
-      title="Featured projects from my portfolio."
-      intro="Here are three highlighted projects that showcase my expertise in full-stack development. While these represent some of my most significant work, they're part of a broader portfolio of successful projects I've delivered throughout my career."
+      title="Things I've built — and things I can build for you."
+      intro="A mix of live client work and sample case studies that show how I approach real problems. The AI automation projects below are reference builds you can hire me to adapt for your team."
     >
-      <ul
-        role="list"
-        className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {projects.map((project) => (
-          <Card as="li" key={project.name}>
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <Image
-                src={project.logo}
-                alt=""
-                className="h-8 w-8"
-                unoptimized
-              />
-            </div>
-            <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-              <Card.Link href={project.link.href}>{project.name}</Card.Link>
-            </h2>
-            <Card.Description>{project.description}</Card.Description>
-            <div className="mt-6 mb-4">
-              <TechStack technologies={project.technologies} />
-            </div>
-            <p className="relative z-10 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-              <LinkIcon className="h-6 w-6 flex-none" />
-              <span className="ml-2">{project.link.label}</span>
-            </p>
-          </Card>
-        ))}
-      </ul>
+      <section>
+        <div className="flex items-center gap-3">
+          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 text-xs font-semibold text-white shadow-sm">
+            <HiSparkles className="h-3.5 w-3.5" />
+            AI Automation
+          </span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-500">
+            Sample builds I can adapt for your workflow
+          </span>
+        </div>
+        <ul
+          role="list"
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2"
+        >
+          {aiProjects.map((project) => (
+            <li key={project.name}>
+              <ProjectCard project={project} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-20">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-zinc-900 px-3 text-xs font-semibold text-white shadow-sm dark:bg-zinc-100 dark:text-zinc-900">
+            <HiCode className="h-3.5 w-3.5" />
+            Web Development
+          </span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-500">
+            Production work shipped to real users
+          </span>
+        </div>
+        <ul
+          role="list"
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {webProjects.map((project) => (
+            <li key={project.name}>
+              <ProjectCard project={project} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-20 overflow-hidden rounded-2xl border border-zinc-200/70 bg-gradient-to-br from-indigo-500 via-violet-600 to-fuchsia-600 p-8 text-white shadow-xl shadow-indigo-500/10 sm:p-12 dark:border-zinc-800">
+        <div className="max-w-2xl">
+          <h3 className="text-2xl font-bold sm:text-3xl">
+            Have a workflow that&apos;s eating your team&apos;s time?
+          </h3>
+          <p className="mt-3 text-base text-indigo-50">
+            I build custom AI automations and web apps that pay for themselves
+            in hours saved. Tell me about your bottleneck — first call is free.
+          </p>
+          <div className="mt-6">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md transition hover:bg-indigo-50"
+            >
+              Start a conversation
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                className="h-4 w-4"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
     </SimpleLayout>
   )
 }
