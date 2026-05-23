@@ -21,9 +21,10 @@ import {
   SiOpenai,
   SiPython,
   SiZapier,
-  SiSupabase,
   SiTwilio,
   SiStripe,
+  SiNotion,
+  SiSlack,
 } from 'react-icons/si'
 import { HiSparkles, HiCode } from 'react-icons/hi'
 
@@ -49,110 +50,82 @@ type Project = {
 
 const projects: Project[] = [
   {
-    name: 'AI Customer Support Agent',
+    name: 'Content Repurposing Engine',
     category: 'AI Automation',
-    status: 'Sample build',
+    status: 'Case study',
     description:
-      "A RAG-powered support chatbot grounded on the client's help docs and product data. Handles tier-1 questions 24/7 and escalates complex cases to a human with full context.",
+      'A Zapier workflow that turns one long-form piece (blog post, podcast transcript, video) into a LinkedIn post, X thread, newsletter intro, and 3 quote captions — all in brand voice, all dropped into Notion for human approval.',
     highlights: [
-      'Deflects ~70% of repeat support tickets',
-      'Pinecone vector search over docs + FAQs',
-      'Embeddable widget for any Next.js site',
+      'Notion → Zapier → 4× GPT-4o-mini → Notion drafts DB',
+      '6+ ready-to-publish assets in under 60 seconds',
+      'Brand voice locked via a shared system-prompt preamble',
     ],
     link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
+      { icon: SiZapier, name: 'Zapier' },
       { icon: SiOpenai, name: 'OpenAI' },
-      { icon: SiNextdotjs, name: 'Next.js' },
-      { icon: SiSupabase, name: 'Supabase' },
-      { icon: SiTypescript, name: 'TypeScript' },
+      { icon: SiNotion, name: 'Notion' },
     ],
     caseStudy: {
       problem:
-        'Support teams burn 60–70% of their time answering the same handful of questions — "where is my order", "how do I reset my password", "what does plan X include". Every minute spent on tier-1 is a minute not spent on the customers who actually need a human.',
+        'Content teams produce one strong long-form asset, then spend two days manually chopping it into LinkedIn posts, X threads, and newsletter blurbs. Distribution is where the reach lives — and it always slips.',
       solution:
-        'Ingest the company\'s docs, FAQs, and product data into a Pinecone vector index. A RAG-powered chatbot retrieves the most relevant chunks for each question and asks GPT-4o to write a grounded reply. Anything ambiguous, multi-turn, or emotional gets routed to a human with the full conversation history attached.',
+        'A Zapier workflow watches a Notion "Source Content" database. The moment a row flips to Ready, four parallel GPT-4o-mini calls generate platform-native variations in the brand\'s voice (LinkedIn post, X thread, newsletter intro, 3 quote captions) and drop them into a "Generated Drafts" database for human approval. A single shared brand-voice preamble keeps tone consistent across outputs.',
       outcome:
-        'Tier-1 deflection rate of ~70% in pilot deployments. Time-to-first-response drops from hours to seconds. Human agents only see the conversations they should be seeing.',
+        'Six-plus drafts per long-form piece, in under a minute, in voice. Total cost: less than a tenth of a cent per run. Content teams ship 3–5× more distribution per upstream piece without hiring.',
     },
   },
   {
     name: 'Lead Qualification Pipeline',
     category: 'AI Automation',
-    status: 'Sample build',
+    status: 'Case study',
     description:
-      'An end-to-end workflow that captures inbound leads, enriches them, scores intent with GPT-4, and routes hot leads straight to the sales rep in Slack with a tailored opening message.',
+      'An n8n workflow that captures inbound leads from any source, enriches and scores them with GPT-4, syncs to GHL as a contact, and pings the right sales rep in Slack with an AI-drafted opening message.',
     highlights: [
       'Replaces ~10 hrs/week of manual triage',
-      'n8n workflow + OpenAI scoring + HubSpot sync',
-      'Slack alerts with AI-drafted reply',
+      'GPT-4 scoring 0–100 against an ideal-customer profile',
+      'Hot leads (>75) get a Slack ping in under 5 minutes',
     ],
     link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
-      { icon: SiOpenai, name: 'OpenAI' },
       { icon: N8nIcon, name: 'n8n' },
-      { icon: GhlIcon, name: 'GHL' },
-      { icon: SiPython, name: 'Python' },
-    ],
-    caseStudy: {
-      problem:
-        'Sales reps spend hours each week sifting through inbound forms, LinkedIn DMs, and demo requests to figure out which leads are actually worth chasing. Most get a generic reply 24 hours later — by then the lead has gone cold.',
-      solution:
-        'An n8n workflow picks up new leads from forms, GHL, and email. Each lead is enriched (company size, industry, tech stack), then scored 0–100 by GPT-4 against an ideal-customer profile. Hot leads (>75) trigger a Slack ping to the rep with a pre-drafted opener tailored to the lead\'s context.',
-      outcome:
-        '10+ hours of triage saved per week per rep. Response time on hot leads drops to under 5 minutes. Conversion rate on responded leads goes up because the first message is already relevant.',
-    },
-  },
-  {
-    name: 'Content Repurposing Engine',
-    category: 'AI Automation',
-    status: 'Sample build',
-    description:
-      'Turn one long-form input (blog post, podcast transcript, YouTube video) into LinkedIn posts, Twitter threads, and an email newsletter in under 60 seconds — all in your brand voice.',
-    highlights: [
-      '1 input → 6+ ready-to-publish assets',
-      'Brand voice locked via fine-tuned system prompt',
-      'Drafts land in Notion + Buffer for approval',
-    ],
-    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
-    technologies: [
       { icon: SiOpenai, name: 'OpenAI' },
-      { icon: SiNextdotjs, name: 'Next.js' },
-      { icon: SiZapier, name: 'Zapier' },
+      { icon: GhlIcon, name: 'GHL' },
+      { icon: SiSlack, name: 'Slack' },
     ],
     caseStudy: {
       problem:
-        'Content teams produce one great long-form asset, then spend the next two days manually chopping it into LinkedIn carousels, X threads, and newsletter blurbs. The repurposing is where the reach lives, and it always slips.',
+        'Sales reps spend hours each week sifting through inbound forms, LinkedIn DMs, and demo requests to figure out which leads are worth chasing. Most leads get a generic reply 24+ hours later — by then they\'ve gone cold.',
       solution:
-        'Drop a blog URL, podcast transcript, or YouTube video into the tool. A pipeline extracts the key arguments, then generates platform-native variations: a LinkedIn post, a Twitter thread, three quote-card captions, and a newsletter intro — each in the brand\'s voice (defined upfront in a locked system prompt). Drafts auto-sync to Notion for human approval and into Buffer for scheduling.',
+        'An n8n workflow ingests new leads from forms, GHL, email, and chat. Each lead is enriched (company size, industry, tech stack), then scored 0–100 by GPT-4 against an ideal-customer profile defined in a single prompt. Hot leads (>75) trigger a Slack ping to the rep with a pre-drafted opener tailored to that lead. Cold leads are auto-routed into a nurture sequence inside GHL.',
       outcome:
-        'Six-plus assets per long-form piece, in under a minute. Content teams ship 3–5× more distribution per upstream piece without hiring.',
+        '10+ hours of triage saved per rep per week. Response time on hot leads drops from 24h to under 5 minutes. Conversion on responded leads goes up because the first message is already relevant — not a generic template.',
     },
   },
   {
-    name: 'Voice AI Receptionist',
+    name: 'AI Receptionist & Smart Booking',
     category: 'AI Automation',
-    status: 'Sample build',
+    status: 'Case study',
     description:
-      'A 24/7 voice agent that picks up missed calls for service businesses, answers FAQs, books appointments straight to Google Calendar, and texts a summary to the owner.',
+      'A GoHighLevel funnel + Twilio voice agent that picks up missed calls 24/7 for service businesses, answers FAQs, checks live calendar availability, books appointments straight into GHL, and SMS-confirms with the customer.',
     highlights: [
-      'Twilio + OpenAI Realtime API',
-      'Captures bookings while you sleep',
-      'Handoff to human after 2 failed attempts',
+      'Captures bookings the business would have lost',
+      'Live calendar lookup + GHL appointment creation',
+      'SMS handoff to a human after two failed turns',
     ],
     link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
+      { icon: GhlIcon, name: 'GHL' },
       { icon: SiOpenai, name: 'OpenAI' },
       { icon: SiTwilio, name: 'Twilio' },
-      { icon: GhlIcon, name: 'GHL' },
-      { icon: SiPython, name: 'Python' },
     ],
     caseStudy: {
       problem:
-        'Service businesses (plumbers, salons, dental practices) lose ~30% of new-customer revenue to missed calls. After hours, no one picks up — and the customer just dials the next listing.',
+        'Service businesses (plumbers, salons, dental practices) lose ~30% of new-customer revenue to missed calls. After hours nobody picks up — and the customer just dials the next listing on Google.',
       solution:
-        'Twilio routes missed and after-hours calls to an OpenAI Realtime voice agent. The agent answers as the business, handles common FAQs (hours, pricing, location), and books appointments directly into Google Calendar or GHL. After two failed turns, it offers to text a human. A summary of every call lands in the owner\'s SMS the next morning.',
+        'A GHL workflow routes missed and after-hours calls through Twilio to an OpenAI Realtime voice agent. The agent answers as the business, handles common FAQs (hours, pricing, location), queries GHL\'s calendar for live availability, and books the appointment directly into GHL. After two failed turns it offers to text a human. The owner gets an SMS summary of every call the next morning.',
       outcome:
-        'Captures bookings the business would have lost. Owners regain peace of mind — no more "I missed three calls during dinner" anxiety.',
+        'Captures bookings outside business hours that would have been lost. Owners regain peace of mind — no more "I missed three calls during dinner" anxiety. The setup runs entirely inside GHL with one external Twilio number and one OpenAI key.',
     },
   },
   {
@@ -592,12 +565,12 @@ export function ProjectsClient() {
             AI Automation
           </span>
           <span className="text-sm text-zinc-500 dark:text-zinc-500">
-            Sample builds I can adapt for your workflow
+            One flagship build per tool — Zapier · n8n · GHL
           </span>
         </Reveal>
         <ul
           role="list"
-          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2"
+          className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3"
         >
           {aiProjects.map((project, i) => (
             <Reveal as="li" key={project.name} delay={i * 80}>
