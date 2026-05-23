@@ -191,24 +191,19 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function ProjectCard({ project }: { project: Project }) {
   const isAI = project.category === 'AI Automation'
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-6 transition hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-indigo-500/40">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"
-      />
-
-      <div className="relative flex items-center justify-between gap-3">
+    <article className="group flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-emerald-500/60 hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-emerald-400/40">
+      <div className="flex items-center justify-between gap-3">
         <div
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl shadow-md ${
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
             isAI
-              ? 'bg-gradient-to-br from-indigo-500 to-fuchsia-500 shadow-indigo-500/20'
-              : 'bg-gradient-to-br from-zinc-700 to-zinc-900 shadow-zinc-800/20 dark:from-zinc-200 dark:to-white dark:shadow-white/10'
+              ? 'bg-emerald-500 text-white'
+              : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
           }`}
         >
           {isAI ? (
-            <HiSparkles className="h-5 w-5 text-white" />
+            <HiSparkles className="h-5 w-5" />
           ) : (
-            <HiCode className="h-5 w-5 text-white dark:text-zinc-900" />
+            <HiCode className="h-5 w-5" />
           )}
         </div>
 
@@ -216,7 +211,7 @@ function ProjectCard({ project }: { project: Project }) {
           <span
             className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
               isAI
-                ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300'
+                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
                 : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
             }`}
           >
@@ -230,26 +225,26 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
 
-      <h3 className="relative mt-5 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+      <h3 className="mt-5 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
         {project.name}
       </h3>
-      <p className="relative mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         {project.description}
       </p>
 
-      <ul className="relative mt-4 space-y-1.5">
+      <ul className="mt-4 space-y-1.5">
         {project.highlights.map((highlight) => (
           <li
             key={highlight}
             className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
           >
-            <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-indigo-500 dark:text-indigo-400" />
+            <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-emerald-500" />
             <span>{highlight}</span>
           </li>
         ))}
       </ul>
 
-      <div className="relative mt-5 flex flex-wrap gap-3">
+      <div className="mt-5 flex flex-wrap gap-3">
         {project.technologies.map((tech) => (
           <div
             key={tech.name}
@@ -262,10 +257,10 @@ function ProjectCard({ project }: { project: Project }) {
         ))}
       </div>
 
-      <div className="relative mt-6 flex flex-1 items-end">
+      <div className="mt-6 flex flex-1 items-end">
         <Link
           href={project.link.href}
-          className="inline-flex items-center text-sm font-medium text-zinc-700 transition group-hover:text-indigo-500 dark:text-zinc-300 dark:group-hover:text-indigo-400"
+          className="inline-flex items-center text-sm font-medium text-zinc-700 transition group-hover:text-emerald-600 dark:text-zinc-300 dark:group-hover:text-emerald-400"
         >
           <LinkIcon className="h-5 w-5 flex-none" />
           <span className="ml-2">{project.link.label}</span>
@@ -292,7 +287,7 @@ export default function Projects() {
     >
       <section>
         <div className="flex items-center gap-3">
-          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 text-xs font-semibold text-white shadow-sm">
+          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-emerald-500 px-3 text-xs font-semibold text-white">
             <HiSparkles className="h-3.5 w-3.5" />
             AI Automation
           </span>
@@ -314,7 +309,7 @@ export default function Projects() {
 
       <section className="mt-20">
         <div className="flex items-center gap-3">
-          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-zinc-900 px-3 text-xs font-semibold text-white shadow-sm dark:bg-zinc-100 dark:text-zinc-900">
+          <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-zinc-900 px-3 text-xs font-semibold text-white dark:bg-white dark:text-zinc-900">
             <HiCode className="h-3.5 w-3.5" />
             Web Development
           </span>
@@ -334,19 +329,19 @@ export default function Projects() {
         </ul>
       </section>
 
-      <section className="mt-20 overflow-hidden rounded-2xl border border-zinc-200/70 bg-gradient-to-br from-indigo-500 via-violet-600 to-fuchsia-600 p-8 text-white shadow-xl shadow-indigo-500/10 sm:p-12 dark:border-zinc-800">
+      <section className="mt-20 rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 dark:border-zinc-800 dark:bg-zinc-900/50">
         <div className="max-w-2xl">
-          <h3 className="text-2xl font-bold sm:text-3xl">
+          <h3 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100">
             Have a workflow that&apos;s eating your team&apos;s time?
           </h3>
-          <p className="mt-3 text-base text-indigo-50">
+          <p className="mt-3 text-base text-zinc-600 dark:text-zinc-400">
             I build custom AI automations and web apps that pay for themselves
             in hours saved. Tell me about your bottleneck — first call is free.
           </p>
           <div className="mt-6">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 shadow-md transition hover:bg-indigo-50"
+              className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               Start a conversation
               <svg
