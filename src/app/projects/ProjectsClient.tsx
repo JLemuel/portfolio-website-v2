@@ -622,7 +622,7 @@ export function ProjectsClient() {
         </Reveal>
         <ul
           role="list"
-          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
           {webProjects.map((project, i) => (
             <Reveal as="li" key={project.name} delay={i * 80}>
