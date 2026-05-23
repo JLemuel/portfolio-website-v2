@@ -58,7 +58,7 @@ export default function Contact() {
   return (
     <SimpleLayout
       title="Let's build something together."
-      intro="Looking to bring your web project to life? I'm here to help transform your ideas into reality."
+      intro="Hiring for a web dev or AI automation role? Want to scope a project? Drop a note — I reply within 24 hours."
     >
       <Toaster position="bottom-center" />
       <div className="mx-auto max-w-xl">
