@@ -33,6 +33,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} font-sans`}
+      suppressHydrationWarning
     >
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>

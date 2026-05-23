@@ -5,7 +5,7 @@ import { Button } from '@/components/Button'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
@@ -26,7 +26,12 @@ function SocialLink({
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -64,7 +69,7 @@ export default function Contact() {
       title="Let's build something together."
       intro="Hiring for a web dev or AI automation role? Want to scope a project? Drop a note — I reply within 24 hours."
     >
-      <Toaster position="bottom-center" />
+      {mounted && <Toaster position="bottom-center" />}
       <div className="mx-auto max-w-xl">
         <div className="space-y-12">
           <div className="flex justify-center gap-12">
