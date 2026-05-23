@@ -5,7 +5,7 @@ import { Button } from '@/components/Button'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
@@ -26,7 +26,12 @@ function SocialLink({
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -40,13 +45,17 @@ export default function Contact() {
         body: formData,
       })
 
+      const result = await response.json().catch(() => ({}))
+
       if (response.ok) {
         toast.success('Message sent successfully!')
         setTimeout(() => {
           router.push('/thank-you')
         }, 1000)
       } else {
-        toast.error('Failed to send message. Please try again.')
+        toast.error(
+          result?.error || 'Failed to send message. Please try again.',
+        )
       }
     } catch (error) {
       toast.error('Something went wrong. Please try again.')
@@ -58,9 +67,9 @@ export default function Contact() {
   return (
     <SimpleLayout
       title="Let's build something together."
-      intro="Looking to bring your web project to life? I'm here to help transform your ideas into reality."
+      intro="Hiring for a web dev or AI automation role? Want to scope a project? Drop a note — I reply within 24 hours."
     >
-      <Toaster position="bottom-center" />
+      {mounted && <Toaster position="bottom-center" />}
       <div className="mx-auto max-w-xl">
         <div className="space-y-12">
           <div className="flex justify-center gap-12">

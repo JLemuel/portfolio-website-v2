@@ -4,24 +4,25 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import {
   SiJavascript,
-  SiPhp,
   SiReact,
   SiTypescript,
   SiLaravel,
-  SiWordpress,
   SiNextdotjs,
   SiTailwindcss,
   SiMysql,
   SiGit,
   SiSupabase,
-  SiReactquery,
+  SiOpenai,
+  SiPython,
+  SiZapier,
+  SiPhp,
+  SiWordpress,
 } from 'react-icons/si'
 
 import { Container } from '@/components/Container'
-import {
-  GitHubIcon,
-  LinkedInIcon,
-} from '@/components/SocialIcons'
+import { Reveal } from '@/components/Reveal'
+import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
+import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
 import portraitImage from '@/images/myportrait.jpg'
 
 function SocialLink({
@@ -39,9 +40,9 @@ function SocialLink({
     <li className={clsx(className, 'flex')}>
       <Link
         href={href}
-        className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+        className="group flex text-sm font-medium text-zinc-800 transition hover:text-emerald-600 dark:text-zinc-200 dark:hover:text-emerald-400"
       >
-        <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
+        <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-emerald-600 dark:group-hover:fill-emerald-400" />
         <span className="ml-4">{children}</span>
       </Link>
     </li>
@@ -59,19 +60,48 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function SkillIcon({ icon: Icon, name }: { icon: any; name: string }) {
+function SkillIcon({
+  icon: Icon,
+  name,
+}: {
+  icon: React.ComponentType<{ className?: string }>
+  name: string
+}) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <Icon className="h-8 w-8 text-zinc-600 hover:text-teal-500 transition-colors dark:text-zinc-400" />
-      <span className="text-sm text-zinc-600 dark:text-zinc-400">{name}</span>
+    <div className="group flex flex-col items-center gap-2 rounded-xl p-2 transition hover:bg-emerald-50/60 dark:hover:bg-emerald-500/10">
+      <Icon className="h-8 w-8 text-zinc-600 transition-colors group-hover:text-emerald-600 dark:text-zinc-400 dark:group-hover:text-emerald-400" />
+      <span className="text-xs text-zinc-600 dark:text-zinc-400">{name}</span>
     </div>
   )
 }
 
+const webStack = [
+  { icon: SiNextdotjs, name: 'Next.js' },
+  { icon: SiReact, name: 'React' },
+  { icon: SiTypescript, name: 'TypeScript' },
+  { icon: SiJavascript, name: 'JavaScript' },
+  { icon: SiTailwindcss, name: 'Tailwind' },
+  { icon: SiLaravel, name: 'Laravel' },
+  { icon: SiPhp, name: 'PHP' },
+  { icon: SiWordpress, name: 'WordPress' },
+  { icon: SiMysql, name: 'MySQL' },
+  { icon: SiSupabase, name: 'Supabase' },
+  { icon: SiGit, name: 'Git' },
+]
+
+const aiStack = [
+  { icon: SiOpenai, name: 'OpenAI' },
+  { icon: N8nIcon, name: 'n8n' },
+  { icon: GhlIcon, name: 'GHL' },
+  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiPython, name: 'Python' },
+  { icon: SiSupabase, name: 'Vector DB' },
+]
+
 export const metadata: Metadata = {
   title: 'About',
   description:
-    "I'm John Lemuel, a Full-Stack Software Engineer based in the Philippines, specializing in building modern web applications.",
+    "I'm John Lemuel, a Full-Stack Engineer and AI Automation Builder based in the Philippines, helping teams ship modern web apps and automate the busywork.",
 }
 
 export default function About() {
@@ -84,46 +114,85 @@ export default function About() {
               src={portraitImage}
               alt="John Lemuel"
               sizes="(min-width: 1024px) 32rem, 20rem"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover ring-1 ring-zinc-900/5 transition duration-500 hover:rotate-0 dark:bg-zinc-800 dark:ring-white/10"
             />
           </div>
         </div>
+
         <div className="lg:order-first lg:row-span-2">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            I&apos;m John Lemuel, a Full-Stack Software Engineer based in the Philippines.
+          <span
+            className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
+            style={{ animationDelay: '0ms' }}
+          >
+            Based in the Philippines · Open to remote work
+          </span>
+          <h1
+            className="mt-5 animate-fade-up text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100"
+            style={{ animationDelay: '80ms' }}
+          >
+            I&apos;m John Lemuel — Full-Stack Engineer and{' '}
+            <span className="text-emerald-600 dark:text-emerald-400">
+              AI Automation Builder
+            </span>
+            .
           </h1>
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
+          <div
+            className="mt-6 animate-fade-up space-y-6 text-base text-zinc-600 dark:text-zinc-400"
+            style={{ animationDelay: '180ms' }}
+          >
             <p>
-              With three years of experience in software development, I&apos;ve developed a deep understanding of both frontend and backend technologies. Based in the Philippines but working with clients globally, I bring a unique perspective to software development that combines local insights with international standards.
+              For the last six years I&apos;ve been shipping production web
+              apps with React, Next.js, Laravel, and TypeScript. I care about
+              clean architecture, fast load times, and interfaces that feel
+              obvious to use.
             </p>
             <p>
-              I specialize in developing full-stack web applications using modern technologies like React, Next.js, Node.js, and various cloud services. My experience spans from crafting responsive user interfaces to designing efficient backend systems and APIs.
+              More recently I&apos;ve gone deep into AI automation. I build
+              GPT-powered workflows, RAG chatbots, and small autonomous agents
+              that quietly handle the work nobody wants to do — qualifying
+              leads, processing documents, drafting content, answering
+              tier-1 support. The stack I reach for: OpenAI, RAG over Pinecone
+              or Supabase, wired together with n8n, Zapier, GHL, or
+              hand-rolled Node/Python workers.
             </p>
             <p>
-              Throughout my career, I&apos;ve had the opportunity to work on diverse projects that have honed my problem-solving abilities and technical expertise. I believe in writing clean, maintainable code and implementing best practices that make applications not just functional, but scalable and future-proof.
+              What I bring is the rare combo: I can ship the polished web app{' '}
+              <em>and</em> wire up the AI behind it. No handoffs, no &ldquo;the
+              dev says it can&apos;t be done&rdquo; — just the whole thing,
+              built and running.
             </p>
             <p>
-              Being part of the thriving tech community in the Philippines, I&apos;m passionate about contributing to the growth of the local tech ecosystem while maintaining global standards in software development. When I&apos;m not coding, I enjoy staying up-to-date with the latest tech trends, contributing to open-source projects, and sharing knowledge with the developer community.
+              When I&apos;m not coding I&apos;m usually exploring new AI tools,
+              contributing to open source, and trading notes with other
+              builders in the Philippine dev community.
             </p>
           </div>
         </div>
-        <div className="lg:pl-20">
-          <div className="max-w-xl">
-            <h2 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-              Technical Skills
-            </h2>
-            <div className="mt-6 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-4">
-              <SkillIcon icon={SiJavascript} name="JavaScript" />
-              <SkillIcon icon={SiPhp} name="PHP" />
-              <SkillIcon icon={SiReact} name="React" />
-              <SkillIcon icon={SiTypescript} name="TypeScript" />
-              <SkillIcon icon={SiLaravel} name="Laravel" />
-              <SkillIcon icon={SiWordpress} name="WordPress" />
-              <SkillIcon icon={SiNextdotjs} name="Next.js" />
-              <SkillIcon icon={SiTailwindcss} name="Tailwind" />
-              <SkillIcon icon={SiMysql} name="MySQL" />
-              <SkillIcon icon={SiGit} name="Git" />
 
+        <Reveal as="div" className="lg:pl-20">
+          <div className="max-w-xl">
+            <h2 className="text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+              Web Development
+            </h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
+              My day-to-day toolkit for shipping web apps.
+            </p>
+            <div className="mt-5 grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-5">
+              {webStack.map((s) => (
+                <SkillIcon key={s.name} icon={s.icon} name={s.name} />
+              ))}
+            </div>
+
+            <h2 className="mt-10 text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+              AI &amp; Automation
+            </h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
+              The stack I reach for to automate workflows and build agents.
+            </p>
+            <div className="mt-5 grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-5">
+              {aiStack.map((s) => (
+                <SkillIcon key={s.name} icon={s.icon} name={s.name} />
+              ))}
             </div>
           </div>
 
@@ -132,7 +201,10 @@ export default function About() {
               <SocialLink href="https://github.com/JLemuel" icon={GitHubIcon}>
                 Follow on GitHub
               </SocialLink>
-              <SocialLink href="https://www.linkedin.com/in/john-lemuel-nicolas-9287ba163" icon={LinkedInIcon}>
+              <SocialLink
+                href="https://www.linkedin.com/in/john-lemuel-nicolas-9287ba163"
+                icon={LinkedInIcon}
+              >
                 Follow on LinkedIn
               </SocialLink>
               <SocialLink
@@ -144,7 +216,7 @@ export default function About() {
               </SocialLink>
             </ul>
           </div>
-        </div>
+        </Reveal>
       </div>
     </Container>
   )
