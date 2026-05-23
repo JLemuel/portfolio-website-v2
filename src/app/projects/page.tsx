@@ -18,6 +18,7 @@ import {
 import { HiSparkles, HiCode } from 'react-icons/hi'
 
 import { SimpleLayout } from '@/components/SimpleLayout'
+import { Reveal } from '@/components/Reveal'
 
 type Tech = { icon: React.ComponentType<{ className?: string }>; name: string }
 
@@ -191,10 +192,10 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function ProjectCard({ project }: { project: Project }) {
   const isAI = project.category === 'AI Automation'
   return (
-    <article className="group flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-emerald-500/60 hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-emerald-400/40">
+    <article className="group flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-emerald-500/60 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-emerald-400/40">
       <div className="flex items-center justify-between gap-3">
         <div
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl transition group-hover:scale-105 ${
             isAI
               ? 'bg-emerald-500 text-white'
               : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
@@ -286,7 +287,7 @@ export default function Projects() {
       intro="A mix of live client work and sample case studies that show how I approach real problems. The AI automation projects below are reference builds you can hire me to adapt for your team."
     >
       <section>
-        <div className="flex items-center gap-3">
+        <Reveal className="flex items-center gap-3">
           <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-emerald-500 px-3 text-xs font-semibold text-white">
             <HiSparkles className="h-3.5 w-3.5" />
             AI Automation
@@ -294,21 +295,21 @@ export default function Projects() {
           <span className="text-sm text-zinc-500 dark:text-zinc-500">
             Sample builds I can adapt for your workflow
           </span>
-        </div>
+        </Reveal>
         <ul
           role="list"
           className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2"
         >
-          {aiProjects.map((project) => (
-            <li key={project.name}>
+          {aiProjects.map((project, i) => (
+            <Reveal as="li" key={project.name} delay={i * 80}>
               <ProjectCard project={project} />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
 
       <section className="mt-20">
-        <div className="flex items-center gap-3">
+        <Reveal className="flex items-center gap-3">
           <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-zinc-900 px-3 text-xs font-semibold text-white dark:bg-white dark:text-zinc-900">
             <HiCode className="h-3.5 w-3.5" />
             Web Development
@@ -316,20 +317,23 @@ export default function Projects() {
           <span className="text-sm text-zinc-500 dark:text-zinc-500">
             Production work shipped to real users
           </span>
-        </div>
+        </Reveal>
         <ul
           role="list"
           className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {webProjects.map((project) => (
-            <li key={project.name}>
+          {webProjects.map((project, i) => (
+            <Reveal as="li" key={project.name} delay={i * 80}>
               <ProjectCard project={project} />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </section>
 
-      <section className="mt-20 rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 dark:border-zinc-800 dark:bg-zinc-900/50">
+      <Reveal
+        as="section"
+        className="mt-20 rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 dark:border-zinc-800 dark:bg-zinc-900/50"
+      >
         <div className="max-w-2xl">
           <h3 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100">
             Have a workflow that&apos;s eating your team&apos;s time?
@@ -361,7 +365,7 @@ export default function Projects() {
             </Link>
           </div>
         </div>
-      </section>
+      </Reveal>
     </SimpleLayout>
   )
 }
