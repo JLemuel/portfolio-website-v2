@@ -29,6 +29,25 @@ export default {
       fontFamily: {
         sans: ['var(--font-satoshi)', ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'fade-in': 'fade-in 0.6s ease-out both',
+        shimmer: 'shimmer 2s ease-in-out infinite',
+      },
     },
   },
 } satisfies Config

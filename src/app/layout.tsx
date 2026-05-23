@@ -8,11 +8,11 @@ import { satoshi } from '@/styles/fonts'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - John Lemuel',
-    default: 'John Lemuel - Full-Stack Software Engineer',
+    template: '%s — John Lemuel',
+    default: 'John Lemuel — Full-Stack Engineer & AI Automation Builder',
   },
   description:
-    "I'm John Lemuel, a Full-Stack Software Engineer who transforms complex problems into elegant digital solutions. I specialize in building robust and scalable web applications with modern technologies.",
+    "I'm John Lemuel — a Full-Stack Engineer and AI Automation Builder from the Philippines. I help teams ship modern web apps and automate the busywork with GPT-powered workflows, RAG chatbots, and agents.",
   appleWebApp: {
     title: 'johnlemuel',
     statusBarStyle: 'default',
@@ -33,6 +33,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} font-sans`}
+      suppressHydrationWarning
     >
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>
