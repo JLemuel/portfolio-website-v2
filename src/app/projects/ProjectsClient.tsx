@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   Dialog,
@@ -33,6 +34,8 @@ import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
 
 type Tech = { icon: React.ComponentType<{ className?: string }>; name: string }
 
+type ProjectImage = { src: string; alt: string; caption?: string }
+
 type Project = {
   name: string
   category: 'AI Automation' | 'Web Development'
@@ -41,6 +44,7 @@ type Project = {
   link: { href: string; label: string }
   technologies: Tech[]
   status?: 'Live' | 'Case study' | 'Sample build'
+  images?: ProjectImage[]
   caseStudy?: {
     problem: string
     solution: string
@@ -52,7 +56,7 @@ const projects: Project[] = [
   {
     name: 'Content Repurposing Engine',
     category: 'AI Automation',
-    status: 'Case study',
+    status: 'Live',
     description:
       'A Zapier workflow that turns one long-form piece (blog post, podcast transcript, video) into a LinkedIn post, X thread, newsletter intro, and 3 quote captions — all in brand voice, all dropped into Notion for human approval.',
     highlights: [
@@ -62,17 +66,31 @@ const projects: Project[] = [
     ],
     link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
-      { icon: SiZapier, name: 'Zapier' },
-      { icon: SiOpenai, name: 'OpenAI' },
       { icon: SiNotion, name: 'Notion' },
+      { icon: SiZapier, name: 'Zapier' },
+      { icon: SiOpenai, name: 'OpenAI GPT-4o-mini' },
+    ],
+    images: [
+      {
+        src: '/images/projects/content-repurposing-engine-zapier-canvas.png',
+        alt: 'Zapier Canvas showing the 9-step Content Repurposing Engine workflow from Source Content Tracker to Generated Drafts',
+        caption:
+          'Zapier Canvas — the 9-step workflow: Source Content Tracker → Content Repurposing Engine → Generated Drafts.',
+      },
+      {
+        src: '/images/projects/content-repurposing-engine-notion-drafts.png',
+        alt: 'Notion Generated Drafts database with AI-generated LinkedIn post, X thread, newsletter intro and quote captions',
+        caption:
+          'Notion Generated Drafts — LinkedIn post, X thread, newsletter intro and quote captions, all populated from a single source article.',
+      },
     ],
     caseStudy: {
       problem:
-        'Content teams produce one strong long-form asset, then spend two days manually chopping it into LinkedIn posts, X threads, and newsletter blurbs. Distribution is where the reach lives — and it always slips.',
+        'Content teams produce one great long-form asset and spend the next two days manually chopping it into LinkedIn posts, X threads, and newsletter blurbs. Distribution is where the reach lives, and it always slips.',
       solution:
-        'A Zapier workflow watches a Notion "Source Content" database. The moment a row flips to Ready, four parallel GPT-4o-mini calls generate platform-native variations in the brand\'s voice (LinkedIn post, X thread, newsletter intro, 3 quote captions) and drop them into a "Generated Drafts" database for human approval. A single shared brand-voice preamble keeps tone consistent across outputs.',
+        'A Zapier workflow watches a Notion Source Content database. The moment a row flips to Ready, four GPT-4o-mini calls generate platform-native variations in the brand\'s voice — LinkedIn, X, newsletter intro, three quote captions — and drop them into a Generated Drafts database in Notion for human approval. Total run time: ~30 seconds. Total cost: less than a tenth of a cent.',
       outcome:
-        'Six-plus drafts per long-form piece, in under a minute, in voice. Total cost: less than a tenth of a cent per run. Content teams ship 3–5× more distribution per upstream piece without hiring.',
+        '6+ assets per long-form piece, in under a minute, in voice. Content teams ship 3–5× more distribution per upstream piece without hiring.',
     },
   },
   {
@@ -245,12 +263,25 @@ function ProjectCard({
   onOpen: () => void
 }) {
   const isAI = project.category === 'AI Automation'
+  const hero = project.images?.[0]
   return (
     <button
       type="button"
       onClick={onOpen}
-      className="group flex h-full w-full flex-col rounded-2xl border border-zinc-200 bg-white p-6 text-left transition duration-300 hover:-translate-y-1 hover:border-emerald-500/60 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-emerald-400/40"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white text-left transition duration-300 hover:-translate-y-1 hover:border-emerald-500/60 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 dark:border-zinc-800 dark:bg-zinc-900/50 dark:hover:border-emerald-400/40"
     >
+      {hero && (
+        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+          <Image
+            src={hero.src}
+            alt={hero.alt}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition duration-500 group-hover:scale-[1.02]"
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-6">
       <div className="flex items-center justify-between gap-3">
         <div
           className={`inline-flex h-11 w-11 items-center justify-center rounded-xl transition group-hover:scale-105 ${
@@ -338,6 +369,7 @@ function ProjectCard({
             />
           </svg>
         </span>
+      </div>
       </div>
     </button>
   )
@@ -432,6 +464,28 @@ function ProjectModal({
                   </div>
 
                   <div className="max-h-[60vh] overflow-y-auto p-6 sm:p-8">
+                    {project.images && project.images.length > 0 && (
+                      <div className="mb-8 space-y-4">
+                        {project.images.map((image) => (
+                          <figure key={image.src}>
+                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+                              <Image
+                                src={image.src}
+                                alt={image.alt}
+                                fill
+                                sizes="(min-width: 640px) 640px, 100vw"
+                                className="object-contain"
+                              />
+                            </div>
+                            {image.caption && (
+                              <figcaption className="mt-2 text-xs text-zinc-500 dark:text-zinc-500">
+                                {image.caption}
+                              </figcaption>
+                            )}
+                          </figure>
+                        ))}
+                      </div>
+                    )}
                     {project.caseStudy && (
                       <div className="space-y-6">
                         <CaseStudyBlock
