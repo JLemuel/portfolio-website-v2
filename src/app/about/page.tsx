@@ -20,6 +20,7 @@ import {
 } from 'react-icons/si'
 
 import { Container } from '@/components/Container'
+import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import portraitImage from '@/images/myportrait.jpg'
 
@@ -110,23 +111,32 @@ export default function About() {
               src={portraitImage}
               alt="John Lemuel"
               sizes="(min-width: 1024px) 32rem, 20rem"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover ring-1 ring-zinc-900/5 dark:bg-zinc-800 dark:ring-white/10"
+              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover ring-1 ring-zinc-900/5 transition duration-500 hover:rotate-0 dark:bg-zinc-800 dark:ring-white/10"
             />
           </div>
         </div>
 
         <div className="lg:order-first lg:row-span-2">
-          <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+          <span
+            className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300"
+            style={{ animationDelay: '0ms' }}
+          >
             Based in the Philippines · Working globally
           </span>
-          <h1 className="mt-5 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+          <h1
+            className="mt-5 animate-fade-up text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100"
+            style={{ animationDelay: '80ms' }}
+          >
             I&apos;m John Lemuel — Full-Stack Engineer and{' '}
             <span className="text-emerald-600 dark:text-emerald-400">
               AI Automation Builder
             </span>
             .
           </h1>
-          <div className="mt-6 space-y-6 text-base text-zinc-600 dark:text-zinc-400">
+          <div
+            className="mt-6 animate-fade-up space-y-6 text-base text-zinc-600 dark:text-zinc-400"
+            style={{ animationDelay: '180ms' }}
+          >
             <p>
               For the last three years I&apos;ve been shipping production web
               apps for clients across the US, Europe, and Asia — building with
@@ -157,7 +167,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="lg:pl-20">
+        <Reveal as="div" className="lg:pl-20">
           <div className="max-w-xl">
             <h2 className="text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
               Web Development
@@ -204,7 +214,7 @@ export default function About() {
               </SocialLink>
             </ul>
           </div>
-        </div>
+        </Reveal>
       </div>
     </Container>
   )
