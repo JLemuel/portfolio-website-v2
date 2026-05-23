@@ -27,7 +27,7 @@ import {
   SiNotion,
   SiSlack,
 } from 'react-icons/si'
-import { HiSparkles, HiCode } from 'react-icons/hi'
+import { HiSparkles, HiCode, HiEye } from 'react-icons/hi'
 
 import { Reveal } from '@/components/Reveal'
 import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
@@ -241,20 +241,6 @@ function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function ArrowOutIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M5.5 4.5h6v6M11 5 4.5 11.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
 function ProjectCard({
   project,
   onOpen,
@@ -385,6 +371,7 @@ function ProjectModal({
   const open = project !== null
   const isAI = project?.category === 'AI Automation'
   const isSample = project?.status === 'Sample build'
+  const [lightboxImage, setLightboxImage] = useState<ProjectImage | null>(null)
 
   return (
     <Transition show={open} as={Fragment}>
@@ -468,15 +455,27 @@ function ProjectModal({
                       <div className="mb-8 space-y-4">
                         {project.images.map((image) => (
                           <figure key={image.src}>
-                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
+                            <button
+                              type="button"
+                              onClick={() => setLightboxImage(image)}
+                              className="group/img relative block aspect-[16/10] w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 dark:border-zinc-800 dark:bg-zinc-900"
+                              aria-label={`Open ${image.alt} at full size`}
+                            >
                               <Image
                                 src={image.src}
                                 alt={image.alt}
                                 fill
                                 sizes="(min-width: 640px) 640px, 100vw"
-                                className="object-contain"
+                                className="object-contain transition duration-300 group-hover/img:scale-[1.02]"
                               />
-                            </div>
+                              <span className="pointer-events-none absolute inset-0 bg-zinc-900/0 transition group-hover/img:bg-zinc-900/30" />
+                              <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition group-hover/img:opacity-100 group-focus-visible/img:opacity-100">
+                                <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-medium text-zinc-900 shadow-lg backdrop-blur dark:bg-zinc-900/95 dark:text-zinc-100">
+                                  <HiEye className="h-5 w-5" />
+                                  View full size
+                                </span>
+                              </span>
+                            </button>
                             {image.caption && (
                               <figcaption className="mt-2 text-xs text-zinc-500 dark:text-zinc-500">
                                 {image.caption}
@@ -562,7 +561,7 @@ function ProjectModal({
                     >
                       Close
                     </button>
-                    {isSample ? (
+                    {isSample && (
                       <Link
                         href="/contact"
                         onClick={onClose}
@@ -570,18 +569,82 @@ function ProjectModal({
                       >
                         Build this for my team
                       </Link>
-                    ) : (
-                      <a
-                        href={project.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-                      >
-                        Visit {project.link.label}
-                        <ArrowOutIcon className="h-3.5 w-3.5" />
-                      </a>
                     )}
                   </div>
+                </>
+              )}
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </Dialog>
+
+      <ImageLightbox
+        image={lightboxImage}
+        onClose={() => setLightboxImage(null)}
+      />
+    </Transition>
+  )
+}
+
+function ImageLightbox({
+  image,
+  onClose,
+}: {
+  image: ProjectImage | null
+  onClose: () => void
+}) {
+  const open = image !== null
+  return (
+    <Transition show={open} as={Fragment}>
+      <Dialog onClose={onClose} className="relative z-[60]">
+        <TransitionChild
+          as={Fragment}
+          enter="duration-200 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="duration-150 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <DialogBackdrop className="fixed inset-0 bg-zinc-950/90 backdrop-blur-sm" />
+        </TransitionChild>
+
+        <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-8">
+          <TransitionChild
+            as={Fragment}
+            enter="duration-200 ease-out"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="duration-150 ease-in"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <DialogPanel className="relative flex h-full max-h-[92vh] w-full max-w-[95vw] flex-col">
+              <button
+                type="button"
+                onClick={onClose}
+                className="absolute right-2 top-2 z-10 rounded-full bg-white/95 p-2 text-zinc-900 shadow-lg transition hover:bg-white dark:bg-zinc-900/95 dark:text-zinc-100 dark:hover:bg-zinc-900"
+                aria-label="Close full-size image"
+              >
+                <CloseIcon className="h-5 w-5" />
+              </button>
+              {image && (
+                <>
+                  <div className="relative flex-1">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="95vw"
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                  {image.caption && (
+                    <p className="mt-3 text-center text-sm text-zinc-300">
+                      {image.caption}
+                    </p>
+                  )}
                 </>
               )}
             </DialogPanel>
