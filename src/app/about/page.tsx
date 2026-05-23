@@ -22,6 +22,7 @@ import {
 import { Container } from '@/components/Container'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
+import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
 import portraitImage from '@/images/myportrait.jpg'
 
 function SocialLink({
@@ -90,8 +91,10 @@ const webStack = [
 
 const aiStack = [
   { icon: SiOpenai, name: 'OpenAI' },
+  { icon: N8nIcon, name: 'n8n' },
+  { icon: GhlIcon, name: 'GHL' },
+  { icon: SiZapier, name: 'Zapier' },
   { icon: SiPython, name: 'Python' },
-  { icon: SiZapier, name: 'Zapier / n8n' },
   { icon: SiSupabase, name: 'Vector DB' },
 ]
 
