@@ -141,7 +141,7 @@ export default function About() {
             style={{ animationDelay: '180ms' }}
           >
             <p>
-              For the last three years I&apos;ve been shipping production web
+              For the last six years I&apos;ve been shipping production web
               apps with React, Next.js, Laravel, and TypeScript. I care about
               clean architecture, fast load times, and interfaces that feel
               obvious to use.

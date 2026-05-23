@@ -31,6 +31,8 @@ import { HiSparkles, HiCode, HiEye } from 'react-icons/hi'
 
 import { Reveal } from '@/components/Reveal'
 import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
+import hero1 from '@/images/projects/content-repurposing-engine-zapier-canvas.png'
+import hero2 from '@/images/projects/content-repurposing-engine-notion-drafts.png'
 
 type Tech = { icon: React.ComponentType<{ className?: string }>; name: string }
 
@@ -72,13 +74,13 @@ const projects: Project[] = [
     ],
     images: [
       {
-        src: '/images/projects/content-repurposing-engine-zapier-canvas.png',
+        src: hero1,
         alt: 'Zapier Canvas showing the 9-step Content Repurposing Engine workflow from Source Content Tracker to Generated Drafts',
         caption:
           'Zapier Canvas — the 9-step workflow: Source Content Tracker → Content Repurposing Engine → Generated Drafts.',
       },
       {
-        src: '/images/projects/content-repurposing-engine-notion-drafts.png',
+        src: hero2,
         alt: 'Notion Generated Drafts database with AI-generated LinkedIn post, X thread, newsletter intro and quote captions',
         caption:
           'Notion Generated Drafts — LinkedIn post, X thread, newsletter intro and quote captions, all populated from a single source article.',
@@ -561,15 +563,13 @@ function ProjectModal({
                     >
                       Close
                     </button>
-                    {isSample && (
-                      <Link
-                        href="/contact"
-                        onClick={onClose}
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-                      >
-                        Build this for my team
-                      </Link>
-                    )}
+                    <Link
+                      href="/contact"
+                      onClick={onClose}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                    >
+                      Build this for my team
+                    </Link>
                   </div>
                 </>
               )}
@@ -687,7 +687,7 @@ export function ProjectsClient() {
         </Reveal>
         <ul
           role="list"
-          className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3"
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2"
         >
           {aiProjects.map((project, i) => (
             <Reveal as="li" key={project.name} delay={i * 80}>
