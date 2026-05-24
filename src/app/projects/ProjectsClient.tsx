@@ -27,7 +27,8 @@ import {
   SiNotion,
   SiSlack,
 } from 'react-icons/si'
-import { HiSparkles, HiCode, HiEye } from 'react-icons/hi'
+import { HiCode, HiEye } from 'react-icons/hi'
+import { HiCpuChip } from 'react-icons/hi2'
 
 import { Reveal } from '@/components/Reveal'
 import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
@@ -269,95 +270,95 @@ function ProjectCard({
           />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-6">
-      <div className="flex items-center justify-between gap-3">
-        <div
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl transition group-hover:scale-105 ${
-            isAI
-              ? 'bg-emerald-500 text-white'
-              : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
-          }`}
-        >
-          {isAI ? (
-            <HiSparkles className="h-5 w-5" />
-          ) : (
-            <HiCode className="h-5 w-5" />
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span
-            className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-2">
+          <div
+            className={`inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl transition group-hover:scale-105 ${
               isAI
-                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
-                : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+                ? 'bg-emerald-500 text-white'
+                : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
             }`}
           >
-            {project.category}
-          </span>
-          {project.status && (
-            <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-              {project.status}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <h3 className="mt-5 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-        {project.name}
-      </h3>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        {project.description}
-      </p>
-
-      <ul className="mt-4 space-y-1.5">
-        {project.highlights.map((highlight) => (
-          <li
-            key={highlight}
-            className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-emerald-500" />
-            <span>{highlight}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-5 flex flex-wrap gap-3">
-        {project.technologies.map((tech) => (
-          <div
-            key={tech.name}
-            className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400"
-            title={tech.name}
-          >
-            <tech.icon className="h-4 w-4" />
-            <span className="text-xs font-medium">{tech.name}</span>
+            {isAI ? (
+              <HiCpuChip className="h-5 w-5" />
+            ) : (
+              <HiCode className="h-5 w-5" />
+            )}
           </div>
-        ))}
-      </div>
 
-      <div className="mt-6 flex flex-1 items-end justify-between gap-3">
-        <span className="inline-flex items-center text-sm font-medium text-zinc-500 dark:text-zinc-400">
-          <LinkIcon className="h-5 w-5 flex-none" />
-          <span className="ml-2">{project.link.label}</span>
-        </span>
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-zinc-700 transition group-hover:text-emerald-600 dark:text-zinc-300 dark:group-hover:text-emerald-400">
-          Read case study
-          <svg
-            viewBox="0 0 16 16"
-            fill="none"
-            className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-            aria-hidden="true"
-          >
-            <path
-              d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-      </div>
+          <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5">
+            <span
+              className={`whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                isAI
+                  ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
+                  : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+              }`}
+            >
+              {project.category}
+            </span>
+            {project.status && (
+              <span className="whitespace-nowrap rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                {project.status}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <h3 className="mt-4 text-base font-semibold leading-snug text-zinc-900 sm:text-lg dark:text-zinc-100">
+          {project.name}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+          {project.description}
+        </p>
+
+        <ul className="mt-4 space-y-1.5">
+          {project.highlights.map((highlight) => (
+            <li
+              key={highlight}
+              className="flex items-start gap-2 text-sm leading-snug text-zinc-600 dark:text-zinc-400"
+            >
+              <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-emerald-500" />
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
+          {project.technologies.map((tech) => (
+            <div
+              key={tech.name}
+              className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400"
+              title={tech.name}
+            >
+              <tech.icon className="h-4 w-4 flex-none" />
+              <span className="text-xs font-medium">{tech.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-1 flex-wrap items-end gap-x-4 gap-y-2">
+          <span className="inline-flex min-w-0 items-center text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <LinkIcon className="h-4 w-4 flex-none" />
+            <span className="ml-1.5 truncate">{project.link.label}</span>
+          </span>
+          <span className="ml-auto inline-flex items-center gap-1 text-sm font-medium text-zinc-700 transition group-hover:text-emerald-600 dark:text-zinc-300 dark:group-hover:text-emerald-400">
+            Read case study
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              className="h-3.5 w-3.5 flex-none transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </button>
   )
@@ -412,47 +413,45 @@ function ProjectModal({
                     <CloseIcon className="h-5 w-5" />
                   </button>
 
-                  <div className="border-b border-zinc-200 p-6 pr-14 sm:p-8 sm:pr-16 dark:border-zinc-800">
-                    <div className="flex items-center gap-3">
+                  <div className="border-b border-zinc-200 p-5 pr-14 sm:p-8 sm:pr-16 dark:border-zinc-800">
+                    <div className="flex flex-wrap items-center gap-2">
                       <div
-                        className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
+                        className={`inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl ${
                           isAI
                             ? 'bg-emerald-500 text-white'
                             : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900'
                         }`}
                       >
                         {isAI ? (
-                          <HiSparkles className="h-5 w-5" />
+                          <HiCpuChip className="h-5 w-5" />
                         ) : (
                           <HiCode className="h-5 w-5" />
                         )}
                       </div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            isAI
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
-                              : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
-                          }`}
-                        >
-                          {project.category}
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          isAI
+                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
+                            : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+                        }`}
+                      >
+                        {project.category}
+                      </span>
+                      {project.status && (
+                        <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
+                          {project.status}
                         </span>
-                        {project.status && (
-                          <span className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-                            {project.status}
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
-                    <DialogTitle className="mt-4 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100">
+                    <DialogTitle className="mt-4 text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl dark:text-zinc-100">
                       {project.name}
                     </DialogTitle>
-                    <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                       {project.description}
                     </p>
                   </div>
 
-                  <div className="max-h-[60vh] overflow-y-auto p-6 sm:p-8">
+                  <div className="max-h-[55vh] overflow-y-auto p-5 sm:max-h-[65vh] sm:p-8">
                     {project.images && project.images.length > 0 && (
                       <div className="mb-8 space-y-4">
                         {project.images.map((image) => (
@@ -555,7 +554,7 @@ function ProjectModal({
                     )}
                   </div>
 
-                  <div className="flex flex-col-reverse gap-2 border-t border-zinc-200 bg-zinc-50 p-6 sm:flex-row sm:justify-end sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/40">
+                  <div className="flex flex-col-reverse gap-2 border-t border-zinc-200 bg-zinc-50 p-4 sm:flex-row sm:justify-end sm:p-5 dark:border-zinc-800 dark:bg-zinc-900/40">
                     <button
                       type="button"
                       onClick={onClose}
@@ -676,9 +675,9 @@ export function ProjectsClient() {
   return (
     <>
       <section>
-        <Reveal className="flex items-center gap-3">
+        <Reveal className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-emerald-500 px-3 text-xs font-semibold text-white">
-            <HiSparkles className="h-3.5 w-3.5" />
+            <HiCpuChip className="h-3.5 w-3.5" />
             AI Automation
           </span>
           <span className="text-sm text-zinc-500 dark:text-zinc-500">
@@ -701,7 +700,7 @@ export function ProjectsClient() {
       </section>
 
       <section className="mt-20">
-        <Reveal className="flex items-center gap-3">
+        <Reveal className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-zinc-900 px-3 text-xs font-semibold text-white dark:bg-white dark:text-zinc-900">
             <HiCode className="h-3.5 w-3.5" />
             Web Development
@@ -727,13 +726,13 @@ export function ProjectsClient() {
 
       <Reveal
         as="section"
-        className="mt-20 rounded-2xl border border-zinc-200 bg-white p-8 sm:p-12 dark:border-zinc-800 dark:bg-zinc-900/50"
+        className="mt-20 rounded-2xl border border-zinc-200 bg-white p-6 sm:p-10 md:p-12 dark:border-zinc-800 dark:bg-zinc-900/50"
       >
         <div className="max-w-2xl">
-          <h3 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-100">
+          <h3 className="text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl md:text-3xl dark:text-zinc-100">
             Have a workflow that&apos;s eating your team&apos;s time?
           </h3>
-          <p className="mt-3 text-base text-zinc-600 dark:text-zinc-400">
+          <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-400">
             I build custom AI automations and web apps that pay for themselves
             in hours saved. Tell me about your bottleneck — first call is free.
           </p>
