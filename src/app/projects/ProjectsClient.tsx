@@ -456,7 +456,7 @@ function ProjectModal({
                     {project.images && project.images.length > 0 && (
                       <div className="mb-8 space-y-4">
                         {project.images.map((image) => (
-                          <figure key={image.src}>
+                          <figure key={image.alt}>
                             <button
                               type="button"
                               onClick={() => setLightboxImage(image)}
