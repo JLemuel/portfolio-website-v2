@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import {
   Dialog,
@@ -36,7 +36,7 @@ import hero2 from '@/images/projects/content-repurposing-engine-notion-drafts.pn
 
 type Tech = { icon: React.ComponentType<{ className?: string }>; name: string }
 
-type ProjectImage = { src: string; alt: string; caption?: string }
+type ProjectImage = { src: string | StaticImageData; alt: string; caption?: string }
 
 type Project = {
   name: string
