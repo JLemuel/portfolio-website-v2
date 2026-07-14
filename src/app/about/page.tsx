@@ -17,6 +17,7 @@ import {
   SiZapier,
   SiPhp,
   SiWordpress,
+  SiShopify,
 } from 'react-icons/si'
 
 import { Container } from '@/components/Container'
@@ -84,6 +85,7 @@ const webStack = [
   { icon: SiLaravel, name: 'Laravel' },
   { icon: SiPhp, name: 'PHP' },
   { icon: SiWordpress, name: 'WordPress' },
+  { icon: SiShopify, name: 'Shopify' },
   { icon: SiMysql, name: 'MySQL' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
@@ -92,7 +94,7 @@ const webStack = [
 const aiStack = [
   { icon: SiOpenai, name: 'OpenAI' },
   { icon: N8nIcon, name: 'n8n' },
-  { icon: GhlIcon, name: 'GHL' },
+  { icon: GhlIcon, name: 'GoHighLevel' },
   { icon: SiZapier, name: 'Zapier' },
   { icon: SiPython, name: 'Python' },
   { icon: SiSupabase, name: 'Vector DB' },

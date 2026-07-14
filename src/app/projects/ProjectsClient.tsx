@@ -150,6 +150,36 @@ const projects: Project[] = [
     },
   },
   {
+    name: 'Portfolio Website — AI-Built & AI-Maintained',
+    category: 'AI Automation',
+    status: 'Live',
+    description:
+      'This very website — designed, built, and maintained through an AI-agent development workflow with Claude Code. New sections, copy edits, and features ship straight from a prompt to a pushed commit, no manual boilerplate.',
+    highlights: [
+      'Built end-to-end with Claude Code driving the changes',
+      'Next.js App Router, TypeScript, Tailwind CSS & MDX',
+      'Updates go from a chat message to a live deploy',
+    ],
+    link: {
+      href: 'https://github.com/JLemuel/portfolio-website-v2',
+      label: 'View source on GitHub',
+    },
+    technologies: [
+      { icon: HiCpuChip, name: 'Claude Code' },
+      { icon: SiNextdotjs, name: 'Next.js' },
+      { icon: SiTypescript, name: 'TypeScript' },
+      { icon: SiTailwindcss, name: 'Tailwind' },
+    ],
+    caseStudy: {
+      problem:
+        'A portfolio has to prove two things at once: that I ship polished web products, and that I actually use AI automation in my own workflow — not just talk about it. Building and maintaining it by hand would demonstrate neither.',
+      solution:
+        'The site is a Next.js + TypeScript + Tailwind build where an AI agent (Claude Code) does the heavy lifting. I describe the change I want — a new project card, a skills update, a layout tweak — and the agent edits the codebase, keeps the design system consistent, and pushes the commit for review.',
+      outcome:
+        'The site itself is the case study: a production web app that stays current with minutes of effort per update. The same agent-driven workflow is what I set up for clients who want AI working inside their own operations.',
+    },
+  },
+  {
     name: 'Tough Cookies — Meal Prep Service',
     category: 'Web Development',
     status: 'Live',
@@ -681,7 +711,7 @@ export function ProjectsClient() {
             AI Automation
           </span>
           <span className="text-sm text-zinc-500 dark:text-zinc-500">
-            One flagship build per tool — Zapier · n8n · GHL
+            Flagship builds — Zapier · n8n · GHL · Claude Code
           </span>
         </Reveal>
         <ul
