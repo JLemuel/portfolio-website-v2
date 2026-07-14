@@ -8,6 +8,7 @@ import {
   SiTailwindcss,
   SiPython,
   SiZapier,
+  SiShopify,
 } from 'react-icons/si'
 import { HiSparkles, HiCode, HiLightningBolt } from 'react-icons/hi'
 
@@ -15,6 +16,7 @@ import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
+import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
 
 function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -55,10 +57,13 @@ const techStack = [
   { icon: SiOpenai, name: 'OpenAI' },
   { icon: SiPython, name: 'Python' },
   { icon: SiZapier, name: 'Zapier' },
+  { icon: N8nIcon, name: 'n8n' },
+  { icon: GhlIcon, name: 'GoHighLevel' },
+  { icon: SiShopify, name: 'Shopify' },
 ]
 
 const stats = [
-  { value: '3+', label: 'Years building products' },
+  { value: '5+', label: 'Years building products' },
   { value: '20+', label: 'Web apps shipped' },
   { value: '15+', label: 'AI workflows automated' },
 ]
