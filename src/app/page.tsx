@@ -63,7 +63,7 @@ const techStack = [
 ]
 
 const stats = [
-  { value: '5+', label: 'Years building products' },
+  { value: '4+', label: 'Years building products' },
   { value: '20+', label: 'Web apps shipped' },
   { value: '15+', label: 'AI workflows automated' },
 ]
