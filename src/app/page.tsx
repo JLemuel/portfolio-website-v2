@@ -64,8 +64,8 @@ const techStack = [
 
 const stats = [
   { value: '4+', label: 'Years building products' },
-  { value: '20+', label: 'Web apps shipped' },
-  { value: '15+', label: 'AI workflows automated' },
+  { value: '15+', label: 'Web apps shipped' },
+  { value: '5+', label: 'AI workflows automated' },
 ]
 
 const services = [
