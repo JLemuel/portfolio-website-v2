@@ -18,7 +18,9 @@ import {
   SiPhp,
   SiWordpress,
   SiShopify,
+  SiDocker,
 } from 'react-icons/si'
+import { FaAws } from 'react-icons/fa6'
 
 import { Container } from '@/components/Container'
 import { Reveal } from '@/components/Reveal'
@@ -89,6 +91,8 @@ const webStack = [
   { icon: SiMysql, name: 'MySQL' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
+  { icon: FaAws, name: 'AWS' },
+  { icon: SiDocker, name: 'Docker' },
 ]
 
 const aiStack = [
@@ -143,7 +147,7 @@ export default function About() {
             style={{ animationDelay: '180ms' }}
           >
             <p>
-              For the last six years I&apos;ve been shipping production web
+              For the last four years I&apos;ve been shipping production web
               apps with React, Next.js, Laravel, and TypeScript. I care about
               clean architecture, fast load times, and interfaces that feel
               obvious to use.
