@@ -109,7 +109,6 @@ const aiStack = [
   { icon: GhlIcon, name: 'GoHighLevel' },
   { icon: SiZapier, name: 'Zapier' },
   { icon: SiPython, name: 'Python' },
-  { icon: SiSupabase, name: 'Vector DB' },
 ]
 
 export const metadata: Metadata = {
