@@ -26,12 +26,14 @@ import {
   SiStripe,
   SiNotion,
   SiSlack,
+  SiShopify,
+  SiJavascript,
 } from 'react-icons/si'
 import { HiCode, HiEye } from 'react-icons/hi'
 import { HiCpuChip } from 'react-icons/hi2'
 
 import { Reveal } from '@/components/Reveal'
-import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
+import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
 import hero1 from '@/images/projects/content-repurposing-engine-zapier-canvas.png'
 import hero2 from '@/images/projects/content-repurposing-engine-notion-drafts.png'
 
@@ -177,6 +179,32 @@ const projects: Project[] = [
         'The site is a Next.js + TypeScript + Tailwind build where an AI agent (Claude Code) does the heavy lifting. I describe the change I want — a new project card, a skills update, a layout tweak — and the agent edits the codebase, keeps the design system consistent, and pushes the commit for review.',
       outcome:
         'The site itself is the case study: a production web app that stays current with minutes of effort per update. The same agent-driven workflow is what I set up for clients who want AI working inside their own operations.',
+    },
+  },
+  {
+    name: 'Chittera — Cricket Protein Storefront',
+    category: 'Web Development',
+    status: 'Live',
+    description:
+      'A Shopify storefront for an Australian cricket-protein brand, built on the Horizon theme with hand-written Liquid sections — an editable nutrition-facts table, how-it’s-made process steps, a trust bar — plus long-form templates for the brand story, nutrition, process, and recipes.',
+    highlights: [
+      'Custom Liquid sections, no page-builder apps',
+      'Nutrition table restacks on mobile via CSS custom properties',
+      'Theme developed locally through the Shopify CLI',
+    ],
+    link: { href: 'https://chittera.com', label: 'chittera.com' },
+    technologies: [
+      { icon: SiShopify, name: 'Shopify' },
+      { icon: LiquidIcon, name: 'Liquid' },
+      { icon: SiJavascript, name: 'JavaScript' },
+    ],
+    caseStudy: {
+      problem:
+        'Cricket protein is a category most shoppers have never bought. A plain product page was never going to be enough — the store had to answer what is actually in it, how it is made, and why it is worth the price, before a first-time buyer would add to cart.',
+      solution:
+        'Built on Shopify’s Horizon theme with sections written in Liquid rather than assembled from page-builder apps. The centrepiece is a nutrition section that renders a semantic, screen-reader-friendly table and collapses into labelled rows on mobile using CSS custom properties, so column headers are never duplicated per row. Every label, row, and footnote is exposed as a schema setting, and repeatable row blocks let the team add nutrients without touching code. Process and trust sections carry the how-it-is-made story, and dedicated templates for Our Story, Nutrition, Process, and a Cookbook give the brand room to teach.',
+      outcome:
+        'A storefront that sells an unfamiliar product by explaining it. The brand edits nutrition figures, process steps, and story copy straight from the theme editor with no developer in the loop, and the custom sections are reusable as the product range grows.',
     },
   },
   {
