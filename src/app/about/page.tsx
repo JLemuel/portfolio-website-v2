@@ -20,6 +20,7 @@ import {
   SiShopify,
   SiDocker,
   SiFastapi,
+  SiPostgresql,
 } from 'react-icons/si'
 import { FaAws } from 'react-icons/fa6'
 import { HiServerStack } from 'react-icons/hi2'
@@ -92,6 +93,7 @@ const webStack = [
   { icon: SiShopify, name: 'Shopify' },
   { icon: LiquidIcon, name: 'Liquid' },
   { icon: SiFastapi, name: 'FastAPI' },
+  { icon: SiPostgresql, name: 'PostgreSQL' },
   { icon: SiMysql, name: 'MySQL' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
