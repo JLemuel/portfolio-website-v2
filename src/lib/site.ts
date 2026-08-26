@@ -20,6 +20,25 @@ export const siteDescription =
   "I'm John Lemuel — a Full-Stack Engineer and AI Automation Builder from the Philippines. I help teams ship modern web apps and automate the busywork with GPT-powered workflows, RAG chatbots, and agents."
 
 /**
+ * Skills shown as chips on the social share card (the image people see when
+ * this site is posted to LinkedIn, Twitter, Slack, etc).
+ *
+ * EDIT THIS LIST to change what appears — it is plain text, no icons involved,
+ * so any label works. Six short labels fit on one row, which is what the card
+ * is tuned for; a seventh wraps onto a second row on its own and looks
+ * lopsided. Order runs left to right, so lead with whatever matters most for
+ * the roles you are targeting.
+ */
+export const ogSkills = [
+  'Next.js',
+  'React',
+  'TypeScript',
+  'Laravel',
+  'Shopify',
+  'Docker',
+]
+
+/**
  * Builds per-page metadata.
  *
  * Page-level `openGraph` / `twitter` objects REPLACE the root layout's rather

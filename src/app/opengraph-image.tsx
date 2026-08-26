@@ -1,19 +1,28 @@
+import fs from 'fs'
+import path from 'path'
 import { ImageResponse } from 'next/og'
 
-export const alt =
-  'John Lemuel — Full-Stack Engineer & AI Automation Builder'
+import { ogSkills } from '@/lib/site'
+
+export const alt = 'John Lemuel — Full-Stack Engineer & AI Automation Builder'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-const skills = [
-  'Next.js',
-  'React',
-  'TypeScript',
-  'Laravel',
-  'Shopify',
-  'OpenAI',
-  'n8n',
-]
+const read = (p: string) => fs.readFileSync(path.join(process.cwd(), p))
+
+/**
+ * Satori cannot read woff2, which is the format next/font uses for the site
+ * itself, so these are plain TTF copies of the same Satoshi faces. Regenerate
+ * with fontTools if the site font ever changes:
+ *   TTFont('Satoshi-Regular.woff2') -> flavor = None -> save as .ttf
+ */
+const satoshiRegular = read('src/fonts/og/Satoshi-Regular.ttf')
+const satoshiBold = read('src/fonts/og/Satoshi-Bold.ttf')
+
+// Pre-cropped 220px square so the full-size portrait isn't inlined here.
+const avatar = `data:image/jpeg;base64,${read(
+  'src/images/og-avatar.jpg',
+).toString('base64')}`
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -26,17 +35,24 @@ export default function OpengraphImage() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           backgroundColor: '#09090b',
-          padding: '72px',
+          padding: '68px 72px',
+          fontFamily: 'Satoshi',
         }}
       >
-        {/* Availability pill */}
-        <div style={{ display: 'flex' }}>
+        {/* Availability pill + portrait */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               border: '1px solid #27272a',
-              borderRadius: '999px',
+              borderRadius: 999,
               padding: '10px 22px',
               fontSize: 22,
               color: '#d4d4d8',
@@ -46,13 +62,24 @@ export default function OpengraphImage() {
               style={{
                 width: 12,
                 height: 12,
-                borderRadius: '999px',
+                borderRadius: 999,
                 backgroundColor: '#10b981',
                 marginRight: 12,
               }}
             />
             Available for new projects
           </div>
+
+          <img
+            src={avatar}
+            width={112}
+            height={112}
+            style={{
+              borderRadius: 999,
+              objectFit: 'cover',
+              border: '3px solid #27272a',
+            }}
+          />
         </div>
 
         {/* Name and role */}
@@ -60,7 +87,7 @@ export default function OpengraphImage() {
           <div
             style={{
               display: 'flex',
-              fontSize: 78,
+              fontSize: 82,
               fontWeight: 700,
               color: '#fafafa',
               letterSpacing: '-0.03em',
@@ -72,10 +99,10 @@ export default function OpengraphImage() {
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              fontSize: 44,
-              fontWeight: 600,
-              letterSpacing: '-0.02em',
-              marginTop: 14,
+              fontSize: 42,
+              fontWeight: 400,
+              letterSpacing: '-0.01em',
+              marginTop: 16,
             }}
           >
             {/* Satori drops trailing whitespace, so the gap is set explicitly. */}
@@ -94,15 +121,15 @@ export default function OpengraphImage() {
             justifyContent: 'space-between',
           }}
         >
-          <div style={{ display: 'flex', flexWrap: 'wrap', maxWidth: 800 }}>
-            {skills.map((skill) => (
+          <div style={{ display: 'flex', flexWrap: 'wrap', maxWidth: 830 }}>
+            {ogSkills.map((skill) => (
               <div
                 key={skill}
                 style={{
                   display: 'flex',
                   backgroundColor: '#18181b',
                   border: '1px solid #27272a',
-                  borderRadius: '999px',
+                  borderRadius: 999,
                   padding: '8px 20px',
                   marginRight: 12,
                   marginTop: 12,
@@ -120,6 +147,17 @@ export default function OpengraphImage() {
         </div>
       </div>
     ),
-    { ...size },
+    {
+      ...size,
+      fonts: [
+        {
+          name: 'Satoshi',
+          data: satoshiRegular,
+          weight: 400,
+          style: 'normal',
+        },
+        { name: 'Satoshi', data: satoshiBold, weight: 700, style: 'normal' },
+      ],
+    },
   )
 }
