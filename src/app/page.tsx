@@ -9,14 +9,25 @@ import {
   SiPython,
   SiZapier,
   SiShopify,
+  SiWordpress,
+  SiFastapi,
+  SiJavascript,
+  SiPhp,
+  SiPostgresql,
+  SiMysql,
+  SiSupabase,
+  SiGit,
+  SiDocker,
 } from 'react-icons/si'
+import { FaAws } from 'react-icons/fa6'
+import { HiServerStack } from 'react-icons/hi2'
 import { HiSparkles, HiCode, HiLightningBolt } from 'react-icons/hi'
 
 import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
-import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
+import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
 
 function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -52,14 +63,26 @@ const techStack = [
   { icon: SiNextdotjs, name: 'Next.js' },
   { icon: SiReact, name: 'React' },
   { icon: SiTypescript, name: 'TypeScript' },
-  { icon: SiLaravel, name: 'Laravel' },
+  { icon: SiJavascript, name: 'JavaScript' },
   { icon: SiTailwindcss, name: 'Tailwind' },
-  { icon: SiOpenai, name: 'OpenAI' },
+  { icon: SiLaravel, name: 'Laravel' },
+  { icon: SiPhp, name: 'PHP' },
   { icon: SiPython, name: 'Python' },
-  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiFastapi, name: 'FastAPI' },
+  { icon: SiPostgresql, name: 'PostgreSQL' },
+  { icon: SiMysql, name: 'MySQL' },
+  { icon: SiSupabase, name: 'Supabase' },
+  { icon: SiShopify, name: 'Shopify' },
+  { icon: LiquidIcon, name: 'Liquid' },
+  { icon: SiWordpress, name: 'WordPress' },
+  { icon: SiOpenai, name: 'OpenAI' },
   { icon: N8nIcon, name: 'n8n' },
   { icon: GhlIcon, name: 'GoHighLevel' },
-  { icon: SiShopify, name: 'Shopify' },
+  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiGit, name: 'Git' },
+  { icon: SiDocker, name: 'Docker' },
+  { icon: FaAws, name: 'AWS' },
+  { icon: HiServerStack, name: 'VPS' },
 ]
 
 const stats = [
