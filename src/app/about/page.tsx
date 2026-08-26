@@ -25,7 +25,7 @@ import { FaAws } from 'react-icons/fa6'
 import { Container } from '@/components/Container'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
-import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
+import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
 import portraitImage from '@/images/myportrait.jpg'
 
 function SocialLink({
@@ -88,6 +88,7 @@ const webStack = [
   { icon: SiPhp, name: 'PHP' },
   { icon: SiWordpress, name: 'WordPress' },
   { icon: SiShopify, name: 'Shopify' },
+  { icon: LiquidIcon, name: 'Liquid' },
   { icon: SiMysql, name: 'MySQL' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
@@ -151,6 +152,15 @@ export default function About() {
               apps with React, Next.js, Laravel, and TypeScript. I care about
               clean architecture, fast load times, and interfaces that feel
               obvious to use.
+            </p>
+            <p>
+              A big slice of that work is e-commerce and CMS builds. I develop
+              Shopify storefronts with custom Liquid themes — bespoke sections,
+              product and variant architecture, bundle offers, and conversion-
+              focused product pages — and I&apos;ve built and maintained
+              WordPress sites, from custom themes to migrations onto faster
+              stacks. If a business sells online, I can build the store and keep
+              it fast.
             </p>
             <p>
               More recently I&apos;ve gone deep into AI automation. I build

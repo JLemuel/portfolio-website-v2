@@ -73,8 +73,8 @@ const services = [
     icon: HiCode,
     title: 'Web Development',
     description:
-      'Production-grade web apps with Next.js, React, Laravel, and TypeScript — clean architecture, fast load times, accessible UI.',
-    tags: ['Next.js', 'React', 'Laravel', 'TypeScript'],
+      'Production-grade web apps and e-commerce storefronts — Next.js, React, and Laravel, plus custom Shopify Liquid themes and WordPress builds.',
+    tags: ['Next.js', 'React', 'Laravel', 'Shopify', 'WordPress'],
   },
   {
     icon: HiSparkles,

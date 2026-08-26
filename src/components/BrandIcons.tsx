@@ -51,3 +51,28 @@ export function GhlIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+/**
+ * Droplet mark for Shopify Liquid. Liquid has no simple-icons entry, so this
+ * stands in for the templating language alongside the Shopify mark.
+ * Inherits color from `currentColor`.
+ */
+export function LiquidIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 2.75c3.5 4 6.25 7.1 6.25 10.5a6.25 6.25 0 1 1-12.5 0c0-3.4 2.75-6.5 6.25-10.5Z" />
+      <path d="M9 14.25a3 3 0 0 0 3 3" />
+    </svg>
+  )
+}
