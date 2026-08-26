@@ -19,8 +19,10 @@ import {
   SiWordpress,
   SiShopify,
   SiDocker,
+  SiFastapi,
 } from 'react-icons/si'
 import { FaAws } from 'react-icons/fa6'
+import { HiServerStack } from 'react-icons/hi2'
 
 import { Container } from '@/components/Container'
 import { Reveal } from '@/components/Reveal'
@@ -89,11 +91,16 @@ const webStack = [
   { icon: SiWordpress, name: 'WordPress' },
   { icon: SiShopify, name: 'Shopify' },
   { icon: LiquidIcon, name: 'Liquid' },
+  { icon: SiFastapi, name: 'FastAPI' },
   { icon: SiMysql, name: 'MySQL' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
-  { icon: FaAws, name: 'AWS' },
   { icon: SiDocker, name: 'Docker' },
+]
+
+const learningStack = [
+  { icon: FaAws, name: 'AWS' },
+  { icon: HiServerStack, name: 'VPS' },
 ]
 
 const aiStack = [
@@ -207,6 +214,19 @@ export default function About() {
             </p>
             <div className="mt-5 grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-5">
               {aiStack.map((s) => (
+                <SkillIcon key={s.name} icon={s.icon} name={s.name} />
+              ))}
+            </div>
+
+            <h2 className="mt-10 text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+              Currently learning
+            </h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
+              What I&apos;m levelling up on right now — deploying and running
+              what I build.
+            </p>
+            <div className="mt-5 grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-5">
+              {learningStack.map((s) => (
                 <SkillIcon key={s.name} icon={s.icon} name={s.name} />
               ))}
             </div>
