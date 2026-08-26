@@ -9,6 +9,8 @@ import {
   SiPython,
   SiZapier,
   SiShopify,
+  SiWordpress,
+  SiFastapi,
 } from 'react-icons/si'
 import { HiSparkles, HiCode, HiLightningBolt } from 'react-icons/hi'
 
@@ -16,7 +18,7 @@ import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
-import { N8nIcon, GhlIcon } from '@/components/BrandIcons'
+import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
 
 function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -52,14 +54,17 @@ const techStack = [
   { icon: SiNextdotjs, name: 'Next.js' },
   { icon: SiReact, name: 'React' },
   { icon: SiTypescript, name: 'TypeScript' },
-  { icon: SiLaravel, name: 'Laravel' },
   { icon: SiTailwindcss, name: 'Tailwind' },
-  { icon: SiOpenai, name: 'OpenAI' },
+  { icon: SiLaravel, name: 'Laravel' },
   { icon: SiPython, name: 'Python' },
-  { icon: SiZapier, name: 'Zapier' },
+  { icon: SiFastapi, name: 'FastAPI' },
+  { icon: SiShopify, name: 'Shopify' },
+  { icon: LiquidIcon, name: 'Liquid' },
+  { icon: SiWordpress, name: 'WordPress' },
+  { icon: SiOpenai, name: 'OpenAI' },
   { icon: N8nIcon, name: 'n8n' },
   { icon: GhlIcon, name: 'GoHighLevel' },
-  { icon: SiShopify, name: 'Shopify' },
+  { icon: SiZapier, name: 'Zapier' },
 ]
 
 const stats = [
