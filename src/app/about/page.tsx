@@ -29,6 +29,7 @@ import { Container } from '@/components/Container'
 import { Reveal } from '@/components/Reveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
+import { pageMetadata } from '@/lib/site'
 import portraitImage from '@/images/myportrait.jpg'
 
 function SocialLink({
@@ -113,11 +114,12 @@ const aiStack = [
   { icon: SiPython, name: 'Python' },
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
     "I'm John Lemuel, a Full-Stack Engineer and AI Automation Builder based in the Philippines, helping teams ship modern web apps and automate the busywork.",
-}
+  path: '/about',
+})
 
 export default function About() {
   return (

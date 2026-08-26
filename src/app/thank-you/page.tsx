@@ -22,6 +22,8 @@ function SocialLink({
 export const metadata: Metadata = {
   title: 'Message Sent',
   description: 'Thank you for reaching out.',
+  // A post-submit confirmation has no search value and shouldn't be a landing page.
+  robots: { index: false, follow: true },
 }
 
 export default function ThankYou() {
