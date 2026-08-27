@@ -1,15 +1,12 @@
 import {
   Body,
-  Column,
   Container,
   Font,
   Head,
-  Heading,
   Hr,
   Html,
   Link,
   Preview,
-  Row,
   Section,
   Text,
 } from '@react-email/components'
@@ -24,13 +21,13 @@ interface ContactFormEmailProps {
 /**
  * Notification sent to John when someone submits the site's contact form.
  *
- * Styled to match the portfolio: zinc greys, an emerald accent, and Satoshi
- * with a system fallback (most clients ignore webfonts, so the stack matters
- * more than the @font-face).
+ * Minimal by design: no panels, no avatar, no boxed message — structure comes
+ * from whitespace and hairlines, with a single emerald accent. Mirrors the
+ * site's zinc palette and Satoshi type, with a system fallback since most
+ * clients drop webfonts.
  *
- * Layout is Row/Column throughout — those compile to tables. Flexbox and grid
- * are unreliable in Outlook and are stripped by several clients, so they are
- * deliberately avoided here even though the site itself uses them.
+ * Deliberately avoids flexbox and grid, which Outlook ignores and several
+ * clients strip. Everything here is block-level or a table via <Section>.
  */
 export const ContactFormEmail = ({
   name,
@@ -38,7 +35,7 @@ export const ContactFormEmail = ({
   message,
 }: ContactFormEmailProps) => {
   const displayName = name?.trim() || 'Anonymous'
-  const initial = displayName.charAt(0).toUpperCase() || '?'
+  const firstName = displayName.split(' ')[0]
 
   return (
     <Html>
@@ -59,47 +56,33 @@ export const ContactFormEmail = ({
       </Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Dark header, mirroring the site's hero */}
-          <Section style={header}>
-            <Row>
-              <Column style={avatarCell}>
-                <Text style={avatarText}>{initial}</Text>
-              </Column>
-              <Column style={senderCell}>
-                <Text style={eyebrow}>NEW ENQUIRY</Text>
-                <Text style={senderName}>{displayName}</Text>
-                <Link href={`mailto:${email}`} style={senderEmail}>
-                  {email}
-                </Link>
-              </Column>
-            </Row>
+          {/* Single accent: a short emerald rule standing in for a logo */}
+          <Section style={accentRule} />
+
+          <Text style={eyebrow}>NEW ENQUIRY</Text>
+          <Text style={senderName}>{displayName}</Text>
+          <Link href={`mailto:${email}`} style={senderEmail}>
+            {email}
+          </Link>
+
+          <Hr style={hairline} />
+
+          <Text style={messageText}>{message}</Text>
+
+          <Section style={ctaWrap}>
+            <Link href={`mailto:${email}`} style={ctaButton}>
+              Reply to {firstName}
+            </Link>
           </Section>
 
-          <Section style={content}>
-            <Text style={label}>MESSAGE</Text>
-            <Section style={messageBox}>
-              <Text style={messageText}>{message}</Text>
-            </Section>
+          <Hr style={hairline} />
 
-            {/* Anchor styled as a button — more reliable than <Button> in Outlook */}
-            <Section style={ctaWrap}>
-              <Link href={`mailto:${email}`} style={ctaButton}>
-                Reply to {displayName.split(' ')[0]}
-              </Link>
-            </Section>
-
-            <Text style={replyNote}>
-              Replying to this email reaches {displayName} directly.
-            </Text>
-
-            <Hr style={divider} />
-            <Text style={footerText}>
-              Sent from the contact form at{' '}
-              <Link href="https://johnlemuel.xyz" style={footerLink}>
-                johnlemuel.xyz
-              </Link>
-            </Text>
-          </Section>
+          <Text style={footerText}>
+            Replying reaches {firstName} directly · sent from{' '}
+            <Link href="https://johnlemuel.xyz" style={footerLink}>
+              johnlemuel.xyz
+            </Link>
+          </Text>
         </Container>
       </Body>
     </Html>
@@ -108,137 +91,89 @@ export const ContactFormEmail = ({
 
 export default ContactFormEmail
 
-/* Palette mirrors the site: zinc greys with an emerald accent. */
+/* Palette mirrors the site: zinc greys, one emerald accent. */
 const FONT_STACK =
   'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif'
 
 const main = {
-  backgroundColor: '#f4f4f5',
+  backgroundColor: '#fafafa',
   fontFamily: FONT_STACK,
-  padding: '32px 0',
+  padding: '40px 20px',
   margin: '0',
 }
 
 const container = {
-  maxWidth: '560px',
+  maxWidth: '520px',
   margin: '0 auto',
   backgroundColor: '#ffffff',
-  borderRadius: '16px',
-  overflow: 'hidden',
-  border: '1px solid #e4e4e7',
+  borderRadius: '14px',
+  padding: '44px 44px 36px',
 }
 
-const header = {
-  backgroundColor: '#09090b',
-  padding: '28px 32px',
-}
-
-const avatarCell = {
-  width: '52px',
-  verticalAlign: 'top' as const,
-}
-
-const avatarText = {
-  width: '44px',
-  height: '44px',
-  lineHeight: '44px',
-  borderRadius: '22px',
+const accentRule = {
+  width: '30px',
+  height: '3px',
   backgroundColor: '#10b981',
-  color: '#052e16',
-  fontSize: '19px',
-  fontWeight: 700,
-  textAlign: 'center' as const,
-  margin: '0',
-}
-
-const senderCell = {
-  verticalAlign: 'top' as const,
-  paddingLeft: '4px',
+  borderRadius: '2px',
+  margin: '0 0 26px',
 }
 
 const eyebrow = {
-  margin: '0 0 4px',
-  fontSize: '11px',
-  fontWeight: 500,
-  letterSpacing: '0.12em',
-  color: '#34d399',
-}
-
-const senderName = {
-  margin: '0',
-  fontSize: '19px',
-  fontWeight: 700,
-  lineHeight: '1.3',
-  color: '#fafafa',
-}
-
-const senderEmail = {
-  fontSize: '14px',
-  color: '#a1a1aa',
-  textDecoration: 'none',
-}
-
-const content = {
-  padding: '32px',
-}
-
-const label = {
   margin: '0 0 10px',
   fontSize: '11px',
   fontWeight: 500,
-  letterSpacing: '0.12em',
-  color: '#71717a',
+  letterSpacing: '0.14em',
+  color: '#a1a1aa',
 }
 
-const messageBox = {
-  backgroundColor: '#fafafa',
-  border: '1px solid #e4e4e7',
-  borderRadius: '10px',
-  padding: '18px 20px',
+const senderName = {
+  margin: '0 0 6px',
+  fontSize: '26px',
+  fontWeight: 700,
+  letterSpacing: '-0.02em',
+  lineHeight: '1.2',
+  color: '#09090b',
+}
+
+const senderEmail = {
+  fontSize: '15px',
+  color: '#71717a',
+  textDecoration: 'none',
+}
+
+const hairline = {
+  borderColor: '#f4f4f5',
+  margin: '30px 0',
 }
 
 const messageText = {
   margin: '0',
-  fontSize: '15px',
-  lineHeight: '1.65',
-  color: '#27272a',
+  fontSize: '16px',
+  lineHeight: '1.7',
+  color: '#3f3f46',
   whiteSpace: 'pre-wrap' as const,
 }
 
 const ctaWrap = {
-  padding: '28px 0 0',
-  textAlign: 'center' as const,
+  padding: '30px 0 0',
 }
 
 const ctaButton = {
   display: 'inline-block',
-  backgroundColor: '#059669',
+  backgroundColor: '#09090b',
   color: '#ffffff',
-  fontSize: '15px',
+  fontSize: '14px',
   fontWeight: 700,
   textDecoration: 'none',
-  padding: '13px 30px',
+  padding: '12px 26px',
   borderRadius: '999px',
-}
-
-const replyNote = {
-  margin: '14px 0 0',
-  fontSize: '13px',
-  lineHeight: '1.5',
-  color: '#71717a',
-  textAlign: 'center' as const,
-}
-
-const divider = {
-  borderColor: '#e4e4e7',
-  margin: '28px 0 16px',
 }
 
 const footerText = {
   margin: '0',
   fontSize: '12px',
+  lineHeight: '1.6',
   color: '#a1a1aa',
-  textAlign: 'center' as const,
 }
 
 const footerLink = {
