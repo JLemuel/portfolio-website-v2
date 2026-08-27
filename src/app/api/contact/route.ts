@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { Resend } from 'resend'
 import ContactFormEmail from '../../../../emails/ContactFormEmail'
-import { renderAsync } from '@react-email/render'
+import { render } from '@react-email/render'
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const CONTACT_TO_EMAIL =
@@ -61,7 +61,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const ip = request.ip || 'unknown'
+    // NextRequest.ip was removed in Next 15; Vercel forwards the client
+    // address in x-forwarded-for, whose first entry is the original client.
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      'unknown'
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },
@@ -76,7 +81,7 @@ export async function POST(request: NextRequest) {
 
     validateFormData(name, email, message)
 
-    const emailHtml = await renderAsync(
+    const emailHtml = await render(
       ContactFormEmail({ name, email, message }),
     )
 

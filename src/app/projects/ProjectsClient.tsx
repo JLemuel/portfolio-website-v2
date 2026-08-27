@@ -32,6 +32,8 @@ import {
 import { HiCode, HiEye } from 'react-icons/hi'
 import { HiCpuChip } from 'react-icons/hi2'
 
+import { track } from '@vercel/analytics'
+
 import { Reveal } from '@/components/Reveal'
 import { N8nIcon, GhlIcon, LiquidIcon } from '@/components/BrandIcons'
 import hero1 from '@/images/projects/content-repurposing-engine-zapier-canvas.png'
@@ -743,6 +745,20 @@ function CaseStudyBlock({ label, text }: { label: string; text: string }) {
 
 export function ProjectsClient() {
   const [activeProject, setActiveProject] = useState<Project | null>(null)
+
+  /**
+   * Case studies open in a modal rather than at their own URL, so page views
+   * alone say nothing about which projects people actually read. This records
+   * that separately.
+   */
+  const openProject = (project: Project) => {
+    setActiveProject(project)
+    track('project_opened', {
+      project: project.name,
+      category: project.category,
+      status: project.status ?? 'unspecified',
+    })
+  }
   const aiProjects = projects.filter((p) => p.category === 'AI Automation')
   const webProjects = projects.filter((p) => p.category === 'Web Development')
 
@@ -766,7 +782,7 @@ export function ProjectsClient() {
             <Reveal as="li" key={project.name} delay={i * 80}>
               <ProjectCard
                 project={project}
-                onOpen={() => setActiveProject(project)}
+                onOpen={() => openProject(project)}
               />
             </Reveal>
           ))}
@@ -791,7 +807,7 @@ export function ProjectsClient() {
             <Reveal as="li" key={project.name} delay={i * 80}>
               <ProjectCard
                 project={project}
-                onOpen={() => setActiveProject(project)}
+                onOpen={() => openProject(project)}
               />
             </Reveal>
           ))}
