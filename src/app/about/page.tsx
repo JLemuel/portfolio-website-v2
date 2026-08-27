@@ -99,9 +99,6 @@ const webStack = [
   { icon: SiSupabase, name: 'Supabase' },
   { icon: SiGit, name: 'Git' },
   { icon: SiDocker, name: 'Docker' },
-]
-
-const learningStack = [
   { icon: FaAws, name: 'AWS' },
   { icon: HiServerStack, name: 'VPS' },
 ]
@@ -221,18 +218,6 @@ export default function About() {
               ))}
             </div>
 
-            <h2 className="mt-10 text-xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-              Currently learning
-            </h2>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
-              What I&apos;m levelling up on right now — deploying and running
-              what I build.
-            </p>
-            <div className="mt-5 grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-5">
-              {learningStack.map((s) => (
-                <SkillIcon key={s.name} icon={s.icon} name={s.name} />
-              ))}
-            </div>
           </div>
 
           <div className="mt-12">
