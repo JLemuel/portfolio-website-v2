@@ -46,7 +46,8 @@ type Project = {
   category: 'AI Automation' | 'Web Development'
   description: string
   highlights: string[]
-  link: { href: string; label: string }
+  /** Omitted when there's no public destination — the modal is the case study. */
+  link?: { href: string; label: string }
   technologies: Tech[]
   status?: 'Live' | 'Case study' | 'Sample build'
   images?: ProjectImage[]
@@ -69,7 +70,6 @@ const projects: Project[] = [
       '6+ ready-to-publish assets in under 60 seconds',
       'Brand voice locked via a shared system-prompt preamble',
     ],
-    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
       { icon: SiNotion, name: 'Notion' },
       { icon: SiZapier, name: 'Zapier' },
@@ -101,7 +101,7 @@ const projects: Project[] = [
   {
     name: 'Lead Qualification Pipeline',
     category: 'AI Automation',
-    status: 'Case study',
+    status: 'Sample build',
     description:
       'An n8n workflow that captures inbound leads from any source, enriches and scores them with GPT-4, syncs to GHL as a contact, and pings the right sales rep in Slack with an AI-drafted opening message.',
     highlights: [
@@ -109,7 +109,6 @@ const projects: Project[] = [
       'GPT-4 scoring 0–100 against an ideal-customer profile',
       'Hot leads (>75) get a Slack ping in under 5 minutes',
     ],
-    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
       { icon: N8nIcon, name: 'n8n' },
       { icon: SiOpenai, name: 'OpenAI' },
@@ -128,7 +127,7 @@ const projects: Project[] = [
   {
     name: 'AI Receptionist & Smart Booking',
     category: 'AI Automation',
-    status: 'Case study',
+    status: 'Sample build',
     description:
       'A GoHighLevel funnel + Twilio voice agent that picks up missed calls 24/7 for service businesses, answers FAQs, checks live calendar availability, books appointments straight into GHL, and SMS-confirms with the customer.',
     highlights: [
@@ -136,7 +135,6 @@ const projects: Project[] = [
       'Live calendar lookup + GHL appointment creation',
       'SMS handoff to a human after two failed turns',
     ],
-    link: { href: 'https://github.com/JLemuel', label: 'View case study' },
     technologies: [
       { icon: GhlIcon, name: 'GHL' },
       { icon: SiOpenai, name: 'OpenAI' },
@@ -395,10 +393,12 @@ function ProjectCard({
         </div>
 
         <div className="mt-5 flex flex-1 flex-wrap items-end gap-x-4 gap-y-2">
-          <span className="inline-flex min-w-0 items-center text-sm font-medium text-zinc-500 dark:text-zinc-400">
-            <LinkIcon className="h-4 w-4 flex-none" />
-            <span className="ml-1.5 truncate">{project.link.label}</span>
-          </span>
+          {project.link && (
+            <span className="inline-flex min-w-0 items-center text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              <LinkIcon className="h-4 w-4 flex-none" />
+              <span className="ml-1.5 truncate">{project.link.label}</span>
+            </span>
+          )}
           <span className="ml-auto inline-flex items-center gap-1 text-sm font-medium text-zinc-700 transition group-hover:text-emerald-600 dark:text-zinc-300 dark:group-hover:text-emerald-400">
             Read case study
             <svg
@@ -595,11 +595,27 @@ function ProjectModal({
                       </div>
                     </div>
 
+                    {project.link && (
+                      <div className="mt-8">
+                        <a
+                          href={project.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                        >
+                          <LinkIcon className="h-4 w-4" />
+                          {project.link.label}
+                          <span className="sr-only">(opens in a new tab)</span>
+                        </a>
+                      </div>
+                    )}
+
                     {isSample && (
                       <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50/60 p-4 text-sm text-emerald-900 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200">
-                        This is a sample build — the live demo and full code
-                        walkthrough are coming soon. Want one adapted to your
-                        team&apos;s stack and workflow?{' '}
+                        This is a reference build, not client work — it shows
+                        how I&apos;d approach the problem end to end. Happy to
+                        walk through the architecture, or adapt it to a
+                        team&apos;s stack.{' '}
                         <Link
                           href="/contact"
                           onClick={onClose}
@@ -625,7 +641,7 @@ function ProjectModal({
                       onClick={onClose}
                       className="inline-flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
                     >
-                      Build this for my team
+                      Get in touch
                     </Link>
                   </div>
                 </>
@@ -788,11 +804,12 @@ export function ProjectsClient() {
       >
         <div className="max-w-2xl">
           <h3 className="text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl md:text-3xl dark:text-zinc-100">
-            Have a workflow that&apos;s eating your team&apos;s time?
+            Looking for someone who can build all of this?
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base dark:text-zinc-400">
-            I build custom AI automations and web apps that pay for themselves
-            in hours saved. Tell me about your bottleneck — first call is free.
+            I&apos;m open to full-time engineering roles and freelance work —
+            web apps, e-commerce builds, and AI automation. Happy to walk
+            through any of these projects in detail.
           </p>
           <div className="mt-6">
             <Link

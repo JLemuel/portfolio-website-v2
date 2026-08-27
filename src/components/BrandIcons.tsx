@@ -21,33 +21,30 @@ export function N8nIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 /**
- * Placeholder mark for GoHighLevel. GHL is not in simple-icons and their CDN
- * blocked downloads from this environment.
+ * The HighLevel (GoHighLevel) three-arrow mark.
  *
- * To swap in the official logo:
- *   1. Download the GHL logo SVG from their press kit
- *      (https://www.gohighlevel.com/affiliates → "Brand Assets", or ask their support).
- *   2. Open the SVG in a text editor, copy the inner <path d="..." /> markup.
- *   3. Replace the <path> below. Keep viewBox="0 0 24 24" (re-export from
- *      Figma/Inkscape if needed) and remove any hard-coded fill colors so
- *      currentColor takes over.
+ * Taken from the official wordmark in `src/images/logos/gohighlevel.svg`, which
+ * is a ~3:1 lockup of mark plus "HighLevel" text — far too wide for the square
+ * icon slots these marks sit in. Only the arrows are kept, with the viewBox set
+ * to their exact bounding box.
+ *
+ * The source hard-codes `fill="rgb(254,254,254)"` (white on white, hence
+ * invisible against a light background); that's dropped here so the mark
+ * inherits `currentColor` and themes like every other icon.
  */
 export function GhlIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       role="img"
-      viewBox="0 0 24 24"
+      viewBox="318 314 754 613"
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
       aria-hidden="true"
       {...props}
     >
-      <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
-      <path d="M16 9.5a4.5 4.5 0 1 0 0 5h-3.5v-2.5" />
+      <path d="M 915.29 314.749 C 922.514 319.97 955.398 354.295 963.299 362.203 L 1073.1 471.893 L 868.434 472.192 L 967.738 559.923 L 967.739 880.5 L 967.741 928.018 L 863.336 928.021 L 863.336 471.896 L 758.054 471.891 L 915.29 314.749 z" />
+      <path d="M 475.771 314.682 C 481.17 318.514 514.538 353.112 522.07 360.649 L 633.487 471.888 L 428.979 471.706 L 528.08 559.276 L 528.08 880.5 L 528.08 927.66 L 423.896 927.652 L 423.896 471.899 L 318.464 471.891 C 370.814 421.339 424.086 366.346 475.771 314.682 z" />
+      <path d="M 695.277 534.744 C 700.416 536.875 838.011 676.308 853.316 691.626 C 832.515 692.335 806.798 691.649 785.637 691.65 L 648.9 691.659 L 748.068 779.301 L 748.07 880.5 L 748.07 928.019 L 643.638 928.021 L 643.638 691.656 L 538.418 691.65 L 695.277 534.744 z" />
     </svg>
   )
 }

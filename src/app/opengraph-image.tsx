@@ -67,7 +67,7 @@ export default function OpengraphImage() {
                 marginRight: 12,
               }}
             />
-            Available for new projects
+            Open to full-time roles & freelance projects
           </div>
 
           <img

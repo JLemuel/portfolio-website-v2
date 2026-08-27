@@ -15,7 +15,7 @@ export default function Projects() {
   return (
     <SimpleLayout
       title="Things I've built — and things I can build for you."
-      intro="A mix of live client work and sample case studies that show how I approach real problems. The AI automation projects below are reference builds you can hire me to adapt for your team."
+      intro="Live client work alongside reference builds. Anything marked Live is shipped and in use; anything marked Sample build is a reference implementation showing how I approach the problem."
     >
       <ProjectsClient />
     </SimpleLayout>
