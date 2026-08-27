@@ -128,7 +128,7 @@ export default async function Home() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            Available for new projects
+            Open to full-time roles &amp; freelance projects
           </div>
 
           <h1
@@ -169,7 +169,7 @@ export default async function Home() {
               variant="secondary"
               className="border border-zinc-200 bg-white px-5 py-2.5 transition active:scale-[0.98] hover:border-emerald-500 hover:bg-emerald-50/60 dark:border-zinc-800 dark:bg-transparent dark:hover:border-emerald-400/60 dark:hover:bg-emerald-500/10"
             >
-              Hire me
+              Get in touch
             </Button>
             <div className="ml-1 flex items-center gap-2">
               <SocialLink
