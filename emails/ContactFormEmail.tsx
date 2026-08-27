@@ -1,20 +1,16 @@
 import {
   Body,
   Container,
+  Font,
   Head,
-  Heading,
   Hr,
   Html,
+  Link,
   Preview,
   Section,
   Text,
-  Font,
-  Img,
 } from '@react-email/components'
 import * as React from 'react'
-import { getBase64Image } from '@/utils/imageToBase64'
-
-const vectorImage = getBase64Image('src/images/vector.png')
 
 interface ContactFormEmailProps {
   name: string
@@ -22,243 +18,165 @@ interface ContactFormEmailProps {
   message: string
 }
 
+/**
+ * Notification sent to John when someone submits the site's contact form.
+ *
+ * Minimal by design: no panels, no avatar, no boxed message — structure comes
+ * from whitespace and hairlines, with a single emerald accent. Mirrors the
+ * site's zinc palette and Satoshi type, with a system fallback since most
+ * clients drop webfonts.
+ *
+ * Deliberately avoids flexbox and grid, which Outlook ignores and several
+ * clients strip. Everything here is block-level or a table via <Section>.
+ */
 export const ContactFormEmail = ({
   name,
   email,
   message,
 }: ContactFormEmailProps) => {
-  // Get initial safely
-  const initial = name && name.length > 0 ? name.charAt(0).toUpperCase() : '?'
+  const displayName = name?.trim() || 'Anonymous'
+  const firstName = displayName.split(' ')[0]
 
   return (
     <Html>
       <Head>
         <Font
           fontFamily="Satoshi"
-          fallbackFontFamily="sans-serif"
+          fallbackFontFamily="Helvetica"
           webFont={{
-            url: 'https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap',
+            url: 'https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap',
             format: 'woff2',
           }}
           fontWeight={400}
           fontStyle="normal"
         />
       </Head>
-      <Preview>New message from {name}</Preview>
+      <Preview>
+        New enquiry from {displayName} — {email}
+      </Preview>
       <Body style={main}>
         <Container style={container}>
-          {/* Top Banner with Sender Info */}
-          <Section style={topBanner}>
-            <div style={bannerContent}>
-              <div style={senderInfo}>
-                <div style={avatarCircle}>{initial}</div>
-                <div style={senderDetails}>
-                  <Text style={senderName}>{name || 'Anonymous'}</Text>
-                  <Text style={senderEmail}>{email}</Text>
-                </div>
-              </div>
-              <div style={logoBadge}>
-                <Text style={logoText}>JL</Text>
-              </div>
-            </div>
+          {/* Single accent: a short emerald rule standing in for a logo */}
+          <Section style={accentRule} />
+
+          <Text style={eyebrow}>NEW ENQUIRY</Text>
+          <Text style={senderName}>{displayName}</Text>
+          <Link href={`mailto:${email}`} style={senderEmail}>
+            {email}
+          </Link>
+
+          <Hr style={hairline} />
+
+          <Text style={messageText}>{message}</Text>
+
+          <Section style={ctaWrap}>
+            <Link href={`mailto:${email}`} style={ctaButton}>
+              Reply to {firstName}
+            </Link>
           </Section>
 
-          {/* Content Container */}
-          <Section style={contentContainer}>
-            {/* Vector Decoration */}
-            <div style={vectorContainer}>
-              <Img
-                src={vectorImage}
-                width="32"
-                height="32"
-                alt="Vector"
-                style={vectorStyle}
-              />
-            </div>
+          <Hr style={hairline} />
 
-            {/* Message Box */}
-            <div style={messageContainer}>
-              <Text style={messageLabel}>Message</Text>
-              <div style={messageBox}>
-                <Text style={messageText}>{message}</Text>
-              </div>
-            </div>
-
-            {/* Action Button */}
-            <div style={actionContainer}>
-              <a href={`mailto:${email}`} style={actionButton}>
-                Reply to Message
-              </a>
-            </div>
-
-            {/* Footer */}
-            <div style={footer}>
-              <Hr style={divider} />
-              <Text style={footerText}>
-                Sent via johnlemuel.xyz contact form
-              </Text>
-            </div>
-          </Section>
+          <Text style={footerText}>
+            Replying reaches {firstName} directly · sent from{' '}
+            <Link href="https://johnlemuel.xyz" style={footerLink}>
+              johnlemuel.xyz
+            </Link>
+          </Text>
         </Container>
       </Body>
     </Html>
   )
 }
 
+export default ContactFormEmail
+
+/* Palette mirrors the site: zinc greys, one emerald accent. */
+const FONT_STACK =
+  'Satoshi, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif'
+
 const main = {
-  backgroundColor: '#f8fafc',
-  fontFamily: 'Satoshi, system-ui, sans-serif',
+  backgroundColor: '#fafafa',
+  fontFamily: FONT_STACK,
+  padding: '40px 20px',
+  margin: '0',
 }
 
 const container = {
-  maxWidth: '540px',
+  maxWidth: '520px',
   margin: '0 auto',
   backgroundColor: '#ffffff',
-  borderRadius: '16px',
-  overflow: 'hidden',
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+  borderRadius: '14px',
+  padding: '44px 44px 36px',
 }
 
-const topBanner = {
-  backgroundColor: '#18181b',
-  padding: '20px',
+const accentRule = {
+  width: '30px',
+  height: '3px',
+  backgroundColor: '#10b981',
+  borderRadius: '2px',
+  margin: '0 0 26px',
 }
 
-const bannerContent = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-}
-
-const senderInfo = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  flex: '1',
-}
-
-const avatarCircle = {
-  width: '36px',
-  height: '36px',
-  backgroundColor: '#3b82f6',
-  borderRadius: '50%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: '#ffffff',
-  fontSize: '16px',
-  fontWeight: '600',
-}
-
-const senderDetails = {
-  display: 'flex',
-  flexDirection: 'column' as const,
-  gap: '2px',
+const eyebrow = {
+  margin: '0 0 10px',
+  fontSize: '11px',
+  fontWeight: 500,
+  letterSpacing: '0.14em',
+  color: '#a1a1aa',
 }
 
 const senderName = {
-  color: '#ffffff',
-  fontSize: '16px',
-  fontWeight: '600',
-  margin: '0',
-  lineHeight: '1.4',
+  margin: '0 0 6px',
+  fontSize: '26px',
+  fontWeight: 700,
+  letterSpacing: '-0.02em',
+  lineHeight: '1.2',
+  color: '#09090b',
 }
 
 const senderEmail = {
-  color: 'rgba(255, 255, 255, 0.7)',
-  fontSize: '14px',
-  margin: '0',
-  lineHeight: '1.4',
+  fontSize: '15px',
+  color: '#71717a',
+  textDecoration: 'none',
 }
 
-const logoBadge = {
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  borderRadius: '8px',
-  padding: '6px 10px',
-}
-
-const logoText = {
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: '700',
-  margin: '0',
-  lineHeight: '1',
-}
-
-const contentContainer = {
-  padding: '32px',
-}
-
-const vectorContainer = {
-  textAlign: 'center' as const,
-  marginBottom: '24px',
-}
-
-const vectorStyle = {
-  opacity: '0.8',
-}
-
-const messageContainer = {
-  marginBottom: '32px',
-}
-
-const messageLabel = {
-  fontSize: '13px',
-  color: '#64748b',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.05em',
-  marginBottom: '12px',
-  fontWeight: '500',
-}
-
-const messageBox = {
-  backgroundColor: '#f8fafc',
-  borderRadius: '8px',
-  padding: '16px 20px',
-  border: '1px solid #e2e8f0',
-  marginTop: '8px',
+const hairline = {
+  borderColor: '#f4f4f5',
+  margin: '30px 0',
 }
 
 const messageText = {
-  fontSize: '14px',
-  color: '#334155',
-  lineHeight: '1.6',
   margin: '0',
+  fontSize: '16px',
+  lineHeight: '1.7',
+  color: '#3f3f46',
   whiteSpace: 'pre-wrap' as const,
-  fontFamily: 'Satoshi, system-ui, sans-serif',
 }
 
-const actionContainer = {
-  textAlign: 'center' as const,
-  marginBottom: '32px',
+const ctaWrap = {
+  padding: '30px 0 0',
 }
 
-const actionButton = {
-  backgroundColor: '#3b82f6',
-  color: '#ffffff',
-  padding: '10px 24px',
-  borderRadius: '6px',
-  textDecoration: 'none',
-  fontSize: '14px',
-  fontWeight: '500',
+const ctaButton = {
   display: 'inline-block',
-  textAlign: 'center' as const,
-}
-
-const footer = {
-  textAlign: 'center' as const,
-}
-
-const divider = {
-  borderColor: '#e2e8f0',
-  margin: '0 0 20px',
+  backgroundColor: '#09090b',
+  color: '#ffffff',
+  fontSize: '14px',
+  fontWeight: 700,
+  textDecoration: 'none',
+  padding: '12px 26px',
+  borderRadius: '999px',
 }
 
 const footerText = {
-  fontSize: '13px',
-  color: '#94a3b8',
   margin: '0',
+  fontSize: '12px',
+  lineHeight: '1.6',
+  color: '#a1a1aa',
 }
 
-export default ContactFormEmail
+const footerLink = {
+  color: '#059669',
+  textDecoration: 'none',
+}
