@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation'
 import { ThemeProvider, useTheme } from 'next-themes'
 
 function usePrevious<T>(value: T) {
-  let ref = useRef<T>()
+  // React 19 requires an explicit initial value for useRef.
+  let ref = useRef<T | undefined>(undefined)
 
   useEffect(() => {
     ref.current = value

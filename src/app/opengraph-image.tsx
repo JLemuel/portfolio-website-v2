@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 import { ImageResponse } from 'next/og'
 
 import { ogSkills } from '@/lib/site'
@@ -8,20 +8,28 @@ export const alt = 'John Lemuel — Full-Stack Engineer & AI Automation Builder'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-const read = (p: string) => fs.readFileSync(path.join(process.cwd(), p))
-
 /**
- * Satori cannot read woff2, which is the format next/font uses for the site
- * itself, so these are plain TTF copies of the same Satoshi faces. Regenerate
- * with fontTools if the site font ever changes:
+ * Read from disk at build time. Turbopack warns that this traces the whole
+ * project, which is harmless here — the card is generated once during the
+ * build, not per request. The tidier `new URL(..., import.meta.url)` form is
+ * not usable: `fetch` cannot read `file://` during a build, and Turbopack's
+ * `fs` shim rejects URL objects.
+ *
+ * Satori cannot read woff2, the format next/font uses for the site itself, so
+ * these are plain TTF copies of the same Satoshi faces. Regenerate with
+ * fontTools if the site font ever changes:
  *   TTFont('Satoshi-Regular.woff2') -> flavor = None -> save as .ttf
  */
-const satoshiRegular = read('src/fonts/og/Satoshi-Regular.ttf')
-const satoshiBold = read('src/fonts/og/Satoshi-Bold.ttf')
+const satoshiRegular = readFileSync(
+  join(process.cwd(), 'src/fonts/og/Satoshi-Regular.ttf'),
+)
+const satoshiBold = readFileSync(
+  join(process.cwd(), 'src/fonts/og/Satoshi-Bold.ttf'),
+)
 
-// Pre-cropped 220px square so the full-size portrait isn't inlined here.
-const avatar = `data:image/jpeg;base64,${read(
-  'src/images/og-avatar.jpg',
+// Pre-cropped 220px square, so the full-size portrait isn't inlined here.
+const avatar = `data:image/jpeg;base64,${readFileSync(
+  join(process.cwd(), 'src/images/og-avatar.jpg'),
 ).toString('base64')}`
 
 export default function OpengraphImage() {
